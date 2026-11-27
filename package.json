@@ -1,0 +1,31 @@
+{
+  "name": "the-auction",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The Auction - a multi-sport player auction game (cricket first). Bid, build, and let real stats decide whose team is better.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "data:cricket": "node scripts/cricket/build-players.mjs",
+    "data:cricket:offline": "node scripts/cricket/build-players.mjs --offline",
+    "simulate": "node scripts/simulate.mjs",
+    "emulators": "firebase emulators:start --only auth,database --project demo-the-auction"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.117.3",
+    "@react-three/fiber": "^8.17.10",
+    "firebase": "^10.14.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "fflate": "^0.8.2",
+    "vite": "^5.4.11"
+  }
+}

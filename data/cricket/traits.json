@@ -1,0 +1,1971 @@
+{
+ "_comment": "Stylized 3D character traits (no stats here). Keyed by display name or Cricsheet short name. skin: light|tan|brown|deep or #hex. hand: left|right. Missing fields fall back to seeded defaults. customImage: optional path/URL to your own licensed artwork that replaces the 3D character.",
+ "Virat Kohli": {
+  "skin": "tan",
+  "hair": "undercut",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 18,
+  "pose": "cover-drive",
+  "accessories": [
+   "tattoo-sleeve",
+   "wristbands"
+  ],
+  "face": {
+   "jaw": 1.08,
+   "brow": 1.12,
+   "nose": 1.04,
+   "length": 1.03,
+   "cheeks": 0.95
+  }
+ },
+ "MS Dhoni": {
+  "skin": "tan",
+  "hair": "long",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 7,
+  "pose": "helicopter",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "length": 1.05,
+   "jaw": 1.02,
+   "nose": 1.06,
+   "cheeks": 0.98,
+   "ears": 1.05
+  }
+ },
+ "Rohit Sharma": {
+  "skin": "tan",
+  "hair": "crop",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 45,
+  "pose": "pull-shot",
+  "face": {
+   "cheeks": 1.15,
+   "width": 1.08,
+   "jaw": 1.08,
+   "length": 0.96,
+   "head": 1.03
+  }
+ },
+ "Jasprit Bumrah": {
+  "skin": "brown",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "black",
+  "number": 93,
+  "pose": "short-run-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.1,
+   "width": 0.93,
+   "cheeks": 0.92,
+   "nose": 1.05,
+   "jaw": 0.96
+  }
+ },
+ "Hardik Pandya": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "blonde",
+  "beard": "short",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "neon",
+  "number": 33,
+  "pose": "lofted-drive",
+  "accessories": [
+   "chain",
+   "tattoo-sleeve"
+  ],
+  "face": {
+   "jaw": 1.08,
+   "length": 1.05,
+   "cheeks": 0.95,
+   "brow": 1.05
+  }
+ },
+ "Ravindra Jadeja": {
+  "skin": "tan",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 8,
+  "hand": "left",
+  "pose": "sword-celebration",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.08,
+   "width": 0.95,
+   "nose": 1.08,
+   "chin": 1.05
+  }
+ },
+ "Rishabh Pant": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "stocky",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 17,
+  "hand": "left",
+  "pose": "scoop",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "cheeks": 1.12,
+   "width": 1.06,
+   "length": 0.95,
+   "nose": 1.03
+  }
+ },
+ "KL Rahul": {
+  "skin": "tan",
+  "hair": "undercut",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 1,
+  "pose": "straight-drive",
+  "accessories": [
+   "tattoo-sleeve"
+  ],
+  "face": {
+   "length": 1.08,
+   "jaw": 1.02,
+   "width": 0.96,
+   "nose": 1.04
+  }
+ },
+ "Shubman Gill": {
+  "skin": "tan",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 77,
+  "pose": "pull-shot",
+  "face": {
+   "length": 1.04,
+   "cheeks": 0.96,
+   "jaw": 0.98,
+   "nose": 1.02
+  }
+ },
+ "Suryakumar Yadav": {
+  "skin": "brown",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 63,
+  "pose": "scoop",
+  "face": {
+   "head": 1.03,
+   "width": 1.05,
+   "cheeks": 1.05,
+   "jaw": 1.06,
+   "forehead": 1.08
+  }
+ },
+ "Yashasvi Jaiswal": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 64,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "cheeks": 1.04,
+   "length": 0.97
+  }
+ },
+ "Sachin Tendulkar": {
+  "skin": "tan",
+  "hair": "curly",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "stocky",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 10,
+  "pose": "straight-drive",
+  "face": {
+   "cheeks": 1.12,
+   "width": 1.06,
+   "length": 0.94,
+   "nose": 1.05,
+   "head": 1.02
+  }
+ },
+ "Yuvraj Singh": {
+  "skin": "tan",
+  "hair": "spiky",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 12,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "length": 1.07,
+   "jaw": 1.06,
+   "nose": 1.06,
+   "brow": 1.05
+  }
+ },
+ "Suresh Raina": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 3,
+  "hand": "left",
+  "pose": "pull-shot",
+  "face": {
+   "length": 1.04,
+   "nose": 1.06,
+   "cheeks": 0.97
+  }
+ },
+ "Virender Sehwag": {
+  "skin": "tan",
+  "hair": "receding",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "upper-cut",
+  "face": {
+   "cheeks": 1.12,
+   "width": 1.08,
+   "forehead": 1.12,
+   "nose": 1.05
+  }
+ },
+ "Sourav Ganguly": {
+  "skin": "tan",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "length": 1.08,
+   "chin": 1.06,
+   "nose": 1.08,
+   "width": 0.96
+  }
+ },
+ "Rahul Dravid": {
+  "skin": "tan",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 19,
+  "pose": "forward-defence",
+  "face": {
+   "length": 1.08,
+   "jaw": 1.04,
+   "nose": 1.07,
+   "brow": 1.06
+  }
+ },
+ "Gautam Gambhir": {
+  "skin": "tan",
+  "hair": "crop",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 5,
+  "hand": "left",
+  "pose": "cover-drive",
+  "face": {
+   "length": 1.04,
+   "width": 0.95,
+   "cheeks": 0.92,
+   "nose": 1.04
+  }
+ },
+ "Shikhar Dhawan": {
+  "skin": "tan",
+  "hair": "bald",
+  "hairColor": "black",
+  "beard": "mustache",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 42,
+  "hand": "left",
+  "pose": "bat-raise",
+  "accessories": [
+   "tattoo-sleeve"
+  ],
+  "face": {
+   "forehead": 1.1,
+   "cheeks": 1.04,
+   "jaw": 1.05,
+   "nose": 1.04
+  }
+ },
+ "Sanju Samson": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 9,
+  "pose": "lofted-drive",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "cheeks": 1.03,
+   "jaw": 1.04,
+   "length": 1.02
+  }
+ },
+ "Shreyas Iyer": {
+  "skin": "tan",
+  "hair": "quiff",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 41,
+  "pose": "straight-drive",
+  "face": {
+   "length": 1.06,
+   "width": 0.95,
+   "nose": 1.05
+  }
+ },
+ "Ravichandran Ashwin": {
+  "skin": "brown",
+  "hair": "receding",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 99,
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.08,
+   "width": 0.95,
+   "nose": 1.1,
+   "forehead": 1.1,
+   "ears": 1.05
+  }
+ },
+ "Mohammed Shami": {
+  "skin": "tan",
+  "hair": "slick-back",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 11,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "jaw": 1.06,
+   "cheeks": 1.05,
+   "width": 1.04
+  }
+ },
+ "Bhuvneshwar Kumar": {
+  "skin": "tan",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 15,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.04,
+   "cheeks": 0.94,
+   "width": 0.95
+  }
+ },
+ "Kuldeep Yadav": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 23,
+  "hand": "left",
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "face": {
+   "cheeks": 1.03,
+   "length": 0.98,
+   "nose": 1.03
+  }
+ },
+ "Yuzvendra Chahal": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 3,
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.1,
+   "width": 0.9,
+   "cheeks": 0.9,
+   "nose": 1.08,
+   "ears": 1.08
+  }
+ },
+ "Axar Patel": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 20,
+  "hand": "left",
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.08,
+   "width": 0.95,
+   "nose": 1.05
+  }
+ },
+ "Ishan Kishan": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 32,
+  "hand": "left",
+  "pose": "pull-shot",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "cheeks": 1.05,
+   "length": 0.97
+  }
+ },
+ "Rinku Singh": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 35,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "cheeks": 1.06,
+   "jaw": 1.05,
+   "width": 1.04
+  }
+ },
+ "Abhishek Sharma": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "neon",
+  "number": 4,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "length": 1.04,
+   "width": 0.97
+  }
+ },
+ "Arshdeep Singh": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "patka",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 2,
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.08,
+   "nose": 1.08,
+   "width": 0.96
+  }
+ },
+ "Mohammed Siraj": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "wicket-celebration",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.06,
+   "nose": 1.08,
+   "cheeks": 0.94
+  }
+ },
+ "Zaheer Khan": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "goatee",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 34,
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "cheeks": 1.08,
+   "width": 1.06,
+   "nose": 1.05
+  }
+ },
+ "Harbhajan Singh": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "patka",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "jaw": 1.04,
+   "nose": 1.07,
+   "length": 1.03
+  }
+ },
+ "Anil Kumble": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "long",
+  "shoes": "white",
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.12,
+   "width": 0.93,
+   "nose": 1.1,
+   "forehead": 1.06
+  }
+ },
+ "Dinesh Karthik": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "scoop",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "length": 1.04,
+   "width": 0.95,
+   "cheeks": 0.94
+  }
+ },
+ "Irfan Pathan": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.06,
+   "width": 0.95,
+   "nose": 1.04
+  }
+ },
+ "Yusuf Pathan": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "chinstrap",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "lofted-drive",
+  "face": {
+   "head": 1.05,
+   "width": 1.08,
+   "jaw": 1.1,
+   "cheeks": 1.08
+  }
+ },
+ "Robin Uthappa": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "lofted-drive",
+  "face": {
+   "cheeks": 1.08,
+   "width": 1.05,
+   "jaw": 1.05
+  }
+ },
+ "Ambati Rayudu": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "pull-shot",
+  "face": {
+   "cheeks": 1.03,
+   "length": 1.02
+  }
+ },
+ "Varun Chakravarthy": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "face": {
+   "jaw": 1.04,
+   "cheeks": 1.04
+  }
+ },
+ "Vaibhav Suryavanshi": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "cheeks": 1.08,
+   "length": 0.92,
+   "width": 1.02,
+   "jaw": 0.94
+  }
+ },
+ "Tilak Varma": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "sweep",
+  "face": {
+   "length": 1.02,
+   "cheeks": 0.98
+  }
+ },
+ "Ajinkya Rahane": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "straight-drive",
+  "face": {
+   "length": 1.04,
+   "width": 0.94,
+   "cheeks": 0.94,
+   "nose": 1.05
+  }
+ },
+ "AB de Villiers": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 17,
+  "pose": "scoop",
+  "face": {
+   "length": 1.04,
+   "jaw": 1.06,
+   "nose": 1.05,
+   "ears": 1.05
+  }
+ },
+ "Chris Gayle": {
+  "skin": "deep",
+  "hair": "bald",
+  "hairColor": "black",
+  "beard": "short",
+  "beardColor": "grey",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 333,
+  "hand": "left",
+  "pose": "bat-raise",
+  "accessories": [
+   "sunglasses",
+   "chain"
+  ],
+  "face": {
+   "head": 1.06,
+   "length": 1.08,
+   "jaw": 1.1,
+   "nose": 1.1,
+   "width": 1.04
+  }
+ },
+ "Kieron Pollard": {
+  "skin": "deep",
+  "hair": "bald",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 55,
+  "pose": "lofted-drive",
+  "face": {
+   "head": 1.08,
+   "width": 1.08,
+   "jaw": 1.1,
+   "cheeks": 1.05
+  }
+ },
+ "Dwayne Bravo": {
+  "skin": "deep",
+  "hair": "curly",
+  "hairColor": "blonde",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "neon",
+  "number": 47,
+  "pose": "wicket-celebration",
+  "accessories": [
+   "chain"
+  ],
+  "face": {
+   "length": 1.04,
+   "cheeks": 1.04,
+   "nose": 1.06
+  }
+ },
+ "Andre Russell": {
+  "skin": "deep",
+  "hair": "buzz",
+  "hairColor": "blonde",
+  "beard": "full",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 12,
+  "pose": "lofted-drive",
+  "face": {
+   "head": 1.05,
+   "jaw": 1.1,
+   "width": 1.06,
+   "nose": 1.06
+  }
+ },
+ "Sunil Narine": {
+  "skin": "deep",
+  "hair": "crop",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "long",
+  "shoes": "white",
+  "number": 74,
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.08,
+   "width": 0.94,
+   "cheeks": 0.92
+  }
+ },
+ "David Warner": {
+  "skin": "light",
+  "hair": "crop",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "stocky",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 31,
+  "hand": "left",
+  "pose": "switch-hit",
+  "face": {
+   "cheeks": 1.05,
+   "jaw": 1.08,
+   "length": 0.98,
+   "nose": 1.04
+  }
+ },
+ "SPD Smith": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 49,
+  "pose": "forward-defence",
+  "face": {
+   "length": 1.08,
+   "width": 0.94,
+   "nose": 1.08,
+   "ears": 1.08
+  }
+ },
+ "Glenn Maxwell": {
+  "skin": "light",
+  "hair": "textured",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 32,
+  "pose": "switch-hit",
+  "face": {
+   "jaw": 1.05,
+   "length": 1.02,
+   "nose": 1.05
+  }
+ },
+ "Pat Cummins": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 30,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.06,
+   "jaw": 1.05,
+   "nose": 1.06
+  }
+ },
+ "Mitchell Starc": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "blonde",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 56,
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.1,
+   "width": 0.94,
+   "nose": 1.06,
+   "jaw": 1.02
+  }
+ },
+ "Josh Hazlewood": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 38,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.08,
+   "width": 0.95,
+   "nose": 1.06
+  }
+ },
+ "Travis Head": {
+  "skin": "light",
+  "hair": "mullet",
+  "hairColor": "blonde",
+  "beard": "mustache",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "pull-shot",
+  "face": {
+   "cheeks": 1.08,
+   "width": 1.05,
+   "length": 0.97
+  }
+ },
+ "Shane Watson": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 33,
+  "pose": "lofted-drive",
+  "face": {
+   "head": 1.04,
+   "jaw": 1.12,
+   "width": 1.06,
+   "chin": 1.06
+  }
+ },
+ "Adam Gilchrist": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "pull-shot",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "length": 1.05,
+   "nose": 1.05,
+   "cheeks": 0.96
+  }
+ },
+ "Brett Lee": {
+  "skin": "light",
+  "hair": "spiky",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 58,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "jaw": 1.08,
+   "length": 1.04,
+   "chin": 1.05
+  }
+ },
+ "Shane Warne": {
+  "skin": "light",
+  "hair": "spiky",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 23,
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "accessories": [
+   "zinc"
+  ],
+  "face": {
+   "cheeks": 1.08,
+   "width": 1.06,
+   "length": 0.98,
+   "nose": 1.03
+  }
+ },
+ "Matthew Hayden": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "straight-drive",
+  "face": {
+   "head": 1.05,
+   "jaw": 1.12,
+   "width": 1.06,
+   "chin": 1.06
+  }
+ },
+ "Ricky Ponting": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 14,
+  "pose": "pull-shot",
+  "face": {
+   "length": 1.02,
+   "jaw": 1.04,
+   "nose": 1.05,
+   "ears": 1.06
+  }
+ },
+ "Aaron Finch": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 5,
+  "pose": "pull-shot",
+  "face": {
+   "cheeks": 1.08,
+   "width": 1.06,
+   "jaw": 1.05
+  }
+ },
+ "Mitchell Marsh": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 8,
+  "pose": "lofted-drive",
+  "face": {
+   "jaw": 1.08,
+   "width": 1.05,
+   "length": 1.04
+  }
+ },
+ "Marcus Stoinis": {
+  "skin": "tan",
+  "hair": "slick-back",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 17,
+  "pose": "lofted-drive",
+  "face": {
+   "jaw": 1.1,
+   "width": 1.05,
+   "brow": 1.08
+  }
+ },
+ "Jos Buttler": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 63,
+  "pose": "scoop",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "length": 1.05,
+   "nose": 1.06,
+   "width": 0.97
+  }
+ },
+ "Ben Stokes": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "ginger",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 55,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "accessories": [
+   "tattoo-sleeve"
+  ],
+  "face": {
+   "jaw": 1.08,
+   "nose": 1.08,
+   "brow": 1.06
+  }
+ },
+ "Jofra Archer": {
+  "skin": "deep",
+  "hair": "buzz",
+  "hairColor": "blonde",
+  "beard": "short",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 22,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.08,
+   "width": 0.94,
+   "cheeks": 0.92
+  }
+ },
+ "Jonny Bairstow": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "ginger",
+  "beard": "short",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 51,
+  "pose": "pull-shot",
+  "face": {
+   "cheeks": 1.08,
+   "width": 1.05
+  }
+ },
+ "Kevin Pietersen": {
+  "skin": "light",
+  "hair": "quiff",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 24,
+  "pose": "switch-hit",
+  "face": {
+   "length": 1.08,
+   "jaw": 1.06,
+   "nose": 1.06
+  }
+ },
+ "Moeen Ali": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "long",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 18,
+  "hand": "left",
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.05,
+   "nose": 1.08,
+   "width": 0.97
+  }
+ },
+ "Sam Curran": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 58,
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "cheeks": 1.04,
+   "length": 0.96,
+   "nose": 1.04
+  }
+ },
+ "Liam Livingstone": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "heavy",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 23,
+  "pose": "lofted-drive",
+  "accessories": [
+   "tattoo-sleeve"
+  ],
+  "face": {
+   "head": 1.04,
+   "jaw": 1.08,
+   "width": 1.06
+  }
+ },
+ "Harry Brook": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 88,
+  "pose": "cover-drive",
+  "face": {
+   "length": 1.04
+  }
+ },
+ "Philip Salt": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "pull-shot",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "cheeks": 1.04,
+   "jaw": 1.04
+  }
+ },
+ "Kane Williamson": {
+  "skin": "light",
+  "hair": "curly",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 22,
+  "pose": "forward-defence",
+  "face": {
+   "length": 1.04,
+   "nose": 1.04,
+   "cheeks": 0.98
+  }
+ },
+ "Trent Boult": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 18,
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.05,
+   "cheeks": 0.96
+  }
+ },
+ "Brendon McCullum": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 42,
+  "pose": "lofted-drive",
+  "accessories": [
+   "tattoo-sleeve"
+  ],
+  "face": {
+   "jaw": 1.08,
+   "width": 1.04,
+   "cheeks": 1.02
+  }
+ },
+ "Faf du Plessis": {
+  "skin": "light",
+  "hair": "slick-back",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 18,
+  "pose": "cover-drive",
+  "face": {
+   "jaw": 1.08,
+   "length": 1.04,
+   "nose": 1.04
+  }
+ },
+ "Quinton de Kock": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 12,
+  "hand": "left",
+  "pose": "pull-shot",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "cheeks": 1.04,
+   "length": 0.97,
+   "nose": 1.03
+  }
+ },
+ "Kagiso Rabada": {
+  "skin": "deep",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 25,
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.08,
+   "width": 0.96,
+   "jaw": 1.04
+  }
+ },
+ "Dale Steyn": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 8,
+  "pose": "wicket-celebration",
+  "bowlType": "pace",
+  "face": {
+   "jaw": 1.06,
+   "cheeks": 0.95,
+   "length": 1.04,
+   "brow": 1.06
+  }
+ },
+ "Imran Tahir": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "wicket-celebration",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.06,
+   "nose": 1.06,
+   "width": 0.97
+  }
+ },
+ "David Miller": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 10,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "face": {
+   "cheeks": 1.06,
+   "jaw": 1.06,
+   "width": 1.04
+  }
+ },
+ "Heinrich Klaasen": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "brown",
+  "beard": "full",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 45,
+  "pose": "lofted-drive",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "jaw": 1.06,
+   "width": 1.05
+  }
+ },
+ "Jacques Kallis": {
+  "skin": "light",
+  "hair": "receding",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "heavy",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 3,
+  "pose": "straight-drive",
+  "face": {
+   "head": 1.05,
+   "jaw": 1.1,
+   "width": 1.08,
+   "forehead": 1.06
+  }
+ },
+ "Lasith Malinga": {
+  "skin": "brown",
+  "hair": "curly",
+  "hairColor": "blonde",
+  "beard": "goatee",
+  "build": "stocky",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 99,
+  "pose": "sling-bowl",
+  "bowlType": "pace",
+  "face": {
+   "cheeks": 1.06,
+   "width": 1.05,
+   "nose": 1.08
+  }
+ },
+ "Kumar Sangakkara": {
+  "skin": "brown",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 11,
+  "hand": "left",
+  "pose": "cover-drive",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "length": 1.04,
+   "nose": 1.05,
+   "cheeks": 0.96
+  }
+ },
+ "Mahela Jayawardene": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 27,
+  "pose": "cover-drive",
+  "face": {
+   "length": 1.03,
+   "nose": 1.04
+  }
+ },
+ "Muttiah Muralitharan": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "width": 1.02,
+   "length": 0.97,
+   "nose": 1.06,
+   "ears": 1.05
+  }
+ },
+ "Sanath Jayasuriya": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "mustache",
+  "build": "stocky",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "upper-cut",
+  "face": {
+   "cheeks": 1.06,
+   "width": 1.04,
+   "nose": 1.05
+  }
+ },
+ "Rashid Khan": {
+  "skin": "tan",
+  "hair": "side-part",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 19,
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.06,
+   "width": 0.96,
+   "nose": 1.08
+  }
+ },
+ "Shakib Al Hasan": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 75,
+  "hand": "left",
+  "pose": "off-spin",
+  "bowlType": "spin",
+  "face": {
+   "cheeks": 1.04,
+   "jaw": 1.04
+  }
+ },
+ "Shahid Afridi": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 10,
+  "pose": "wicket-celebration",
+  "bowlType": "spin",
+  "face": {
+   "length": 1.06,
+   "nose": 1.08,
+   "jaw": 1.04
+  }
+ },
+ "Mohammad Babar Azam": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 56,
+  "pose": "cover-drive",
+  "face": {
+   "length": 1.04,
+   "cheeks": 0.97,
+   "nose": 1.04
+  }
+ },
+ "Shaheen Shah Afridi": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "tall",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "hand": "left",
+  "pose": "fast-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.1,
+   "width": 0.94,
+   "nose": 1.06
+  }
+ },
+ "Mohammad Rizwan": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "chinstrap",
+  "build": "slim",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 16,
+  "pose": "sweep",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "length": 1.04,
+   "width": 0.95,
+   "cheeks": 0.95
+  }
+ },
+ "N Pooran": {
+  "skin": "deep",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "stocky",
+  "height": "short",
+  "headgear": "helmet",
+  "sleeves": "short",
+  "shoes": "white",
+  "number": 29,
+  "hand": "left",
+  "pose": "lofted-drive",
+  "accessories": [
+   "keeper-gloves"
+  ],
+  "face": {
+   "cheeks": 1.06,
+   "width": 1.05
+  }
+ },
+ "Wanindu Hasaranga": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "leg-spin",
+  "bowlType": "spin",
+  "face": {
+   "cheeks": 1.02,
+   "length": 0.98
+  }
+ },
+ "Matheesha Pathirana": {
+  "skin": "brown",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "headgear": "none",
+  "sleeves": "short",
+  "shoes": "white",
+  "pose": "sling-bowl",
+  "bowlType": "pace",
+  "face": {
+   "length": 1.04,
+   "width": 0.94,
+   "cheeks": 0.94
+  }
+ }
+}
