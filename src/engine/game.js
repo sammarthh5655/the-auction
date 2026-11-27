@@ -37,7 +37,8 @@ export function startGameUpdates(room, pack, players, now) {
       ownerUid: room.teams?.[t.id]?.ownerUid || null, squad: null, rtmLeft: 0,
     };
   }
-  up['lot'] = null; up['lineups'] = null; up['results'] = null; up['log'] = null; up['rtmTags'] = null;
+  // (old lot/log/lineups/results/rtmTags are cleared by the caller in a separate write - Firebase rejects
+  //  one update that touches both a node and its child, e.g. 'log' and 'log/A0000')
   up['meta/startedAt'] = now;
   up['log/A0000'] = { t: now, kind: 'info', text: `Auction started - ${s.teams.length} teams, purse ${s.purse} ${pack.currency.big}` };
   const draftOn = s.retention.on || s.rtm.on;

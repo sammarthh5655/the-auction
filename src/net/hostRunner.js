@@ -126,6 +126,7 @@ export const hostActions = ({ backend, code, pack, players }) => {
   const write = map => backend.update(prefix(code, map));
   return {
     async start() {
+      await write({ lot: null, log: null, lineups: null, results: null, rtmTags: null, draft: null, pool: null, candidates: null });
       const room = await get();
       const seats = room.seats || {};
       const solo = room.meta.mode === 'solo';

@@ -35,3 +35,11 @@ export function pushKey(now = Date.now()) {
   counter = (counter + 1) % 1000;
   return now.toString(36) + counter.toString(36).padStart(2, '0') + Math.random().toString(36).slice(2, 5);
 }
+
+/** Firebase rejects a multi-path update where one path contains another - mirror that locally. */
+export function assertNoOverlap(map) {
+  const keys = Object.keys(map).map(k => split(k).join('/')).sort();
+  for (let i = 1; i < keys.length; i++) {
+    if (keys[i].startsWith(keys[i - 1] + '/')) throw new Error(`Overlapping update paths: ${keys[i - 1]} and ${keys[i]}`);
+  }
+}

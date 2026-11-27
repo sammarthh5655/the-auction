@@ -4,7 +4,7 @@
  * broadcast with BroadcastChannel. Lets you test online multiplayer without a Firebase project:
  *   open  http://localhost:5173/?backend=tabs  in two tabs.
  */
-import { clean, clone, getAt, pushKey, setAt, split } from './tree.js';
+import { assertNoOverlap, clean, clone, getAt, pushKey, setAt, split } from './tree.js';
 
 const KEY = 'the-auction:tabs-db';
 const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch { return {}; } };
@@ -41,6 +41,7 @@ export function createTabsBackend() {
     },
     async get(path) { tree = read(); return clone(getAt(tree, split(path))); },
     update(map) {
+      assertNoOverlap(map);
       return locked(() => { for (const [p, v] of Object.entries(map)) tree = setAt(tree, split(p), clean(clone(v))); commit(); });
     },
     transaction(path, fn) {

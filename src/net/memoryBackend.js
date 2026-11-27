@@ -1,5 +1,5 @@
 // In-memory backend for solo games (and the headless simulator). Same API as the Firebase backend.
-import { clean, clone, getAt, pushKey, setAt, split } from './tree.js';
+import { assertNoOverlap, clean, clone, getAt, pushKey, setAt, split } from './tree.js';
 
 export function createMemoryBackend({ uid = 'solo-player', clock = () => Date.now(), persistKey = null } = {}) {
   let tree = {};
@@ -32,6 +32,7 @@ export function createMemoryBackend({ uid = 'solo-player', clock = () => Date.no
     },
     async get(path) { return clone(getAt(tree, split(path))); },
     async update(map) {
+      assertNoOverlap(map);
       for (const [p, v] of Object.entries(map)) tree = setAt(tree, split(p), clean(clone(v)));
       emit();
     },
