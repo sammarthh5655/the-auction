@@ -1,0 +1,5 @@
+{
+  "_comment": "Hand corrections applied after stats are computed. Keyed by Cricsheet id or short name. Fields: name, country, role (BAT|BOWL|AR|WK), status (active|retired), customImage. Never put stats here.",
+  "DA Miller": { "role": "BAT" },
+  "R Ashwin": { "status": "retired" }
+}
