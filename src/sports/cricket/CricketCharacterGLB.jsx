@@ -12,7 +12,7 @@ import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { poseFor } from './poses.js';
-import { boneAxes, clothGeometry, physique } from './characterMesh.js';
+import { boneAxes, clothGeometry, jerseyTexture, physique } from './characterMesh.js';
 import { Bat, Hair, Headgear, backTexture, useMats } from './CricketCharacterLowPoly.jsx';
 
 // bump MODEL_VERSION after re-running scripts/models/pack-models.mjs so browsers refetch
@@ -177,6 +177,35 @@ function buildRig(scene) {
 
 function Socket({ sref, children }) { return <group ref={sref}>{children}</group>; }
 
+/**
+ * Cricket pad in the shin's frame (shin runs down -Y, front is +Z): three vertical padded bolsters ("canes"),
+ * a rounded knee roll with an instep flap, side wings, and dark straps round the back of the calf.
+ */
+function BattingPad({ mats, keeper }) {
+  const L = keeper ? 0.38 : 0.42;
+  const strap = mats.strap || (mats.strap = new THREE.MeshStandardMaterial({ color: '#2b2f3a', roughness: 0.6 }));
+  const piping = mats.piping || (mats.piping = new THREE.MeshStandardMaterial({ color: '#d9d4c8', roughness: 0.55 }));
+  return (
+    <group position={[0, -0.21, 0.05]}>
+      {[-0.044, 0, 0.044].map((x, i) => (
+        <mesh key={x} material={mats.pad} position={[x, 0, i === 1 ? 0.012 : 0]} rotation={[0, x * 6, 0]}>
+          <capsuleGeometry args={[0.024, L - 0.05, 4, 10]} />
+        </mesh>
+      ))}
+      {[-0.022, 0.022].map(x => <mesh key={x} material={piping} position={[x, 0, 0.026]}><boxGeometry args={[0.004, L - 0.04, 0.004]} /></mesh>)}
+      <mesh material={mats.pad} position={[0, L / 2 + 0.03, 0.012]} rotation={[0, 0, Math.PI / 2]}><capsuleGeometry args={[0.034, 0.1, 4, 12]} /></mesh>
+      <mesh material={mats.pad} position={[0, L / 2 + 0.075, 0]} rotation={[0, 0, Math.PI / 2]}><capsuleGeometry args={[0.024, 0.08, 4, 10]} /></mesh>
+      <mesh material={mats.pad} position={[0, -L / 2 - 0.035, 0.02]} rotation={[0.5, 0, Math.PI / 2]}><capsuleGeometry args={[0.022, 0.09, 4, 10]} /></mesh>
+      {[-1, 1].map(sd => (
+        <mesh key={sd} material={mats.pad} position={[sd * 0.078, 0, -0.022]} rotation={[0, sd * 0.9, 0]}><boxGeometry args={[0.012, L - 0.02, 0.06]} /></mesh>
+      ))}
+      {[0.12, -0.02, -0.15].map(y => (
+        <mesh key={y} material={strap} position={[0, y, -0.06]}><boxGeometry args={[0.165, 0.02, 0.012]} /></mesh>
+      ))}
+    </group>
+  );
+}
+
 /** Moustache / goatee / french beard sized for the rigged head (socket origin = head centre). */
 function FacialHair({ style, mat }) {
   const lip = [0, -0.026, 0.104];
@@ -231,6 +260,7 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
     const scene = cloneSkinned(files.body.scene);
     const rig = buildRig(scene);
     const axes = boneAxes(rig, CHILD);
+    let printed = false;
     let body = null;
     scene.traverse(o => { if (o.isSkinnedMesh && o.name === 'SuperHero_Male') body = o; });
     const skin = detailMaterial(ch.skin || '#c98f66', T.skin_detail, T.skin_normal, { roughnessMap: T.skin_rough, roughness: 1, normalScale: new THREE.Vector2(0.7, 0.7) });
@@ -244,12 +274,18 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
       // loose jersey + trousers draped over the body (skinned to the same skeleton)
       const cloth = (group, offset, material) => {
         const g = clothGeometry(body.geometry, group, offset); if (!g) return;
+        if (typeof material === 'function') material = material(g);
         const m = new THREE.SkinnedMesh(g, material);
         m.bind(body.skeleton, body.bindMatrix);
         m.frustumCulled = false; m.castShadow = true;
         body.parent.add(m);
       };
-      cloth(1, 0.011, new THREE.MeshStandardMaterial({ color: ch.jersey?.color || '#1f3a68', roughness: 0.78, metalness: 0.02 }));
+      // name + number printed into the jersey's UV space (falls back to a back plate if the UVs don't allow it)
+      cloth(1, 0.011, g => {
+        const jt = jerseyTexture(g, { color: ch.jersey?.color || '#1f3a68', name: ch.jersey?.backName, number: ch.jersey?.number });
+        printed = jt.printed;
+        return new THREE.MeshStandardMaterial({ map: jt.texture, roughness: 0.78, metalness: 0.02 });
+      });
       cloth(2, 0.009, new THREE.MeshStandardMaterial({ color: mats.pants.color, roughness: 0.85 }));
     }
     scene.traverse(o => {
@@ -280,9 +316,9 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
     // the first render, which can run while a freshly cloned skeleton is still being swapped in
     const bounds = new THREE.Sphere(new THREE.Vector3(0, 1, 0), 1.6);
     scene.traverse(o => { if (o.isSkinnedMesh) { o.boundingSphere = bounds.clone(); o.boundingBox = new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(0, 1, 0), new THREE.Vector3(3, 3, 3)); } });
-    return { scene, rig };
+    return { scene, rig, printed };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files.body, T, ch.build, ch.jersey?.color, ch.skin, ch.sleeves, ch.hair?.color, ch.hair?.style, ch.beard?.style, ch.beard?.color, ch.headgear, batting, keeper, mats, acc.join(), faceKey]);
+  }, [files.body, T, ch.build, ch.jersey?.color, ch.jersey?.backName, ch.jersey?.number, ch.skin, ch.sleeves, ch.hair?.color, ch.hair?.style, ch.beard?.style, ch.beard?.color, ch.headgear, batting, keeper, mats, acc.join(), faceKey]);
 
   const backTex = useMemo(() => backTexture(ch.jersey?.backName, ch.jersey?.number, ch.jersey?.color || '#1f3a68'), [ch.jersey?.backName, ch.jersey?.number, ch.jersey?.color]);
   useEffect(() => () => backTex.dispose(), [backTex]);
@@ -416,26 +452,22 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
         </group>
       </Socket>
       <Socket sref={sockets.chest}>
-        <mesh position={[0, 0.0, -0.17]} rotation={[0, Math.PI, 0]}>
+        {!built.printed && <mesh position={[0, 0.0, -0.17]} rotation={[0, Math.PI, 0]}>
           <planeGeometry args={[0.24, 0.24]} />
           <meshStandardMaterial map={backTex} transparent alphaTest={0.01} roughness={0.6} />
-        </mesh>
+        </mesh>}
       </Socket>
       <Socket sref={sockets.neck}>
         {acc.includes('chain') && <mesh material={mats.gold} position={[0, -0.02, 0.03]} rotation={[1.2, 0, 0]}><torusGeometry args={[0.075, 0.006, 4, 16]} /></mesh>}
       </Socket>
       <Socket sref={sockets.foreL}>
-        {acc.includes('wristbands') && <mesh material={mats.white} position={[0, -0.22, 0]}><cylinderGeometry args={[0.04, 0.04, 0.05, 8]} /></mesh>}
       </Socket>
-      <Socket sref={sockets.handR}>{!left && pose.bat && <group ref={batRef}><Bat mats={mats} /></group>}{!left && pose.ball && <mesh material={mats.ball} position={[0, -0.05, 0.03]}><icosahedronGeometry args={[0.036, 1]} /></mesh>}
+      <Socket sref={sockets.handR}>{acc.includes('wristbands') && <mesh material={mats.white} position={[0, 0.06, 0]}><cylinderGeometry args={[0.036, 0.034, 0.045, 12]} /></mesh>}{!left && pose.bat && <group ref={batRef}><Bat mats={mats} /></group>}{!left && pose.ball && <mesh material={mats.ball} position={[0, -0.05, 0.03]}><icosahedronGeometry args={[0.036, 1]} /></mesh>}
         {keeper && <mesh material={mats.keeperGlove} position={[0, -0.03, 0]}><boxGeometry args={[0.11, 0.13, 0.07]} /></mesh>}</Socket>
-      <Socket sref={sockets.handL}>{left && pose.bat && <group ref={batRef}><Bat mats={mats} /></group>}{left && pose.ball && <mesh material={mats.ball} position={[0, -0.05, 0.03]}><icosahedronGeometry args={[0.036, 1]} /></mesh>}
+      <Socket sref={sockets.handL}>{acc.includes('wristbands') && <mesh material={mats.white} position={[0, 0.06, 0]}><cylinderGeometry args={[0.036, 0.034, 0.045, 12]} /></mesh>}{left && pose.bat && <group ref={batRef}><Bat mats={mats} /></group>}{left && pose.ball && <mesh material={mats.ball} position={[0, -0.05, 0.03]}><icosahedronGeometry args={[0.036, 1]} /></mesh>}
         {keeper && <mesh material={mats.keeperGlove} position={[0, -0.03, 0]}><boxGeometry args={[0.11, 0.13, 0.07]} /></mesh>}</Socket>
       {pads && ['calfL', 'calfR'].map(k => (
-        <Socket key={k} sref={sockets[k]}>
-          <mesh material={mats.pad} position={[0, -0.2, 0.06]}><boxGeometry args={[0.14, 0.44, 0.07]} /></mesh>
-          <mesh material={mats.pad} position={[0, 0.02, 0.085]}><boxGeometry args={[0.15, 0.1, 0.07]} /></mesh>
-        </Socket>
+        <Socket key={k} sref={sockets[k]}><BattingPad mats={mats} keeper={keeper} /></Socket>
       ))}
     </group>
   );

@@ -161,3 +161,70 @@ export function boneAxes(rig, childMap = {}) {
   }
   return axes;
 }
+
+/**
+ * Printed jersey: draws the base colour plus the name + number straight into the jersey's UV space, so
+ * the print sits on the fabric and moves with it. The back/chest UV islands are mapped by fitting an
+ * affine map from model-space (x, y) to (u, v); if the region straddles a UV seam the fit fails and we
+ * return printed: false so the caller can fall back to a back plate.
+ */
+function fitRegion(geometry, test) {
+  const pos = geometry.attributes.position, uv = geometry.attributes.uv, nrm = geometry.attributes.normal;
+  if (!uv) return null;
+  const rows = [];
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), y = pos.getY(i), nz = nrm.getZ(i);
+    if (test(x, y, nz)) rows.push([x, y, uv.getX(i), uv.getY(i)]);
+  }
+  if (rows.length < 12) return null;
+  // least squares for u and v against [x, y, 1]
+  const solve = k => {
+    let sxx = 0, sxy = 0, sx = 0, syy = 0, sy = 0, n = 0, sxt = 0, syt = 0, st = 0;
+    for (const r of rows) { const [x, y] = r, t = r[k]; sxx += x * x; sxy += x * y; sx += x; syy += y * y; sy += y; n++; sxt += x * t; syt += y * t; st += t; }
+    const M = [[sxx, sxy, sx], [sxy, syy, sy], [sx, sy, n]], b = [sxt, syt, st];
+    const det = m => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+    const D0 = det(M); if (Math.abs(D0) < 1e-12) return null;
+    return [0, 1, 2].map(c => det(M.map((row, i) => row.map((v, j) => (j === c ? b[i] : v)))) / D0);
+  };
+  const cu = solve(2), cv = solve(3);
+  if (!cu || !cv) return null;
+  let err = 0;
+  for (const [x, y, u, v] of rows) { err += (cu[0] * x + cu[1] * y + cu[2] - u) ** 2 + (cv[0] * x + cv[1] * y + cv[2] - v) ** 2; }
+  err = Math.sqrt(err / rows.length);
+  return err < 0.015 ? { cu, cv } : null;
+}
+
+export function jerseyTexture(geometry, { color = '#1f3a68', name = '', number = '', trim = '#ffffff' } = {}) {
+  const S = 2048; // the back is a small UV island - high resolution keeps the lettering crisp
+  const c = document.createElement('canvas'); c.width = c.height = S;
+  const g = c.getContext('2d');
+  g.fillStyle = color; g.fillRect(0, 0, S, S);
+  const back = fitRegion(geometry, (x, y, nz) => nz < -0.6 && y > 1.12 && y < 1.42 && Math.abs(x) < 0.15);
+  const front = fitRegion(geometry, (x, y, nz) => nz > 0.55 && y > 1.15 && y < 1.45 && Math.abs(x) < 0.15);
+  // text space is centimetres; xDir -1 on the back (viewer behind sees the player's left on their left)
+  const place = (fit, xDir, yc) => {
+    const { cu, cv } = fit, k = 0.01;
+    g.setTransform(S * cu[0] * xDir * k, S * cv[0] * xDir * k, -S * cu[1] * k, -S * cv[1] * k, S * (cu[1] * yc + cu[2]), S * (cv[1] * yc + cv[2]));
+  };
+  const print = (text, size, y, weight = 700) => {
+    g.font = `${weight} ${size}px "Bebas Neue", Impact, "Arial Narrow", sans-serif`;
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.lineJoin = 'round'; g.lineWidth = size * 0.09; g.strokeStyle = 'rgba(0,0,0,0.35)';
+    g.strokeText(text, 0, y); g.fillStyle = trim; g.fillText(text, 0, y);
+  };
+  if (back) {
+    // keep the print in the flat middle of the back - the shoulder blades stretch the fabric
+    place(back, -1, 1.27);
+    const nm = String(name).toUpperCase().slice(0, 12);
+    print(nm, nm.length > 8 ? 5 : 6, -4.6);
+    print(String(number ?? ''), 13, 4.2);
+  }
+  if (front) {
+    place(front, 1, 1.33);
+    print(String(number ?? ''), 6, 0);
+  }
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  const t = new THREE.CanvasTexture(c);
+  t.flipY = false; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return { texture: t, printed: !!back };
+}
