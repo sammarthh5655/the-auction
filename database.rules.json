@@ -1,0 +1,46 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "rooms": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && (!data.exists() || data.child('hostUid').val() === auth.uid)"
+        },
+        "settings": {
+          ".write": "auth != null && (!data.parent().child('meta').exists() || data.parent().child('meta/hostUid').val() === auth.uid)"
+        },
+        "members": {
+          "$uid": {
+            ".write": "auth != null && ($uid === auth.uid || data.parent().parent().child('meta/hostUid').val() === auth.uid)"
+          }
+        },
+        "seats": {
+          ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid",
+          "$team": {
+            ".write": "auth != null && newData.parent().parent().child('members/' + auth.uid).exists() && (!data.exists() || data.val() === auth.uid) && (!newData.exists() || newData.val() === auth.uid)"
+          }
+        },
+        "lot": {
+          ".write": "auth != null && data.parent().child('members/' + auth.uid).exists()"
+        },
+        "draft": {
+          ".write": "auth != null && data.parent().child('members/' + auth.uid).exists()"
+        },
+        "lineups": {
+          ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid",
+          "$team": {
+            ".write": "auth != null && data.parent().parent().child('teams/' + $team + '/ownerUid').val() === auth.uid"
+          }
+        },
+        "teams":      { ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid" },
+        "pool":       { ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid" },
+        "candidates": { ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid" },
+        "rtmTags":    { ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid" },
+        "results":    { ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid" },
+        "log":        { ".write": "auth != null && data.parent().child('meta/hostUid').val() === auth.uid" }
+      }
+    }
+  }
+}
