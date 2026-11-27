@@ -8,15 +8,29 @@
  */
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { clone as cloneSkinned } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { poseFor } from './poses.js';
+import { boneAxes, clothGeometry, physique } from './characterMesh.js';
 import { Bat, Hair, Headgear, backTexture, useMats } from './CricketCharacterLowPoly.jsx';
 
 // bump MODEL_VERSION after re-running scripts/models/pack-models.mjs so browsers refetch
-const MODEL_VERSION = 2;
+const MODEL_VERSION = 4;
 const url = f => `${import.meta.env.BASE_URL}models/cricketer/${f}.glb?v=${MODEL_VERSION}`;
+const tex = f => `${import.meta.env.BASE_URL}models/cricketer/tex/${f}.webp?v=${MODEL_VERSION}`;
+const TEX_FILES = ['skin_detail', 'skin_normal', 'skin_rough', 'hair1_detail', 'hair1_normal', 'hair2_detail', 'hair2_normal'];
+const HAIR_TEX = { hair_long: 2, hair_buns: 2 };
+const DETAIL_MEAN = 0.68; // linear mean of the detail maps (215/255 sRGB) - colour is divided by it
+
+/** colour x detail-map material: keeps the trait colour, adds the pack's texture detail */
+function detailMaterial(hex, map, normalMap, extra = {}) {
+  const c = new THREE.Color(hex);
+  c.multiplyScalar(1 / DETAIL_MEAN);
+  c.r = Math.min(1, c.r); c.g = Math.min(1, c.g); c.b = Math.min(1, c.b);
+  return new THREE.MeshStandardMaterial({ color: c, map, normalMap, ...extra });
+}
+
 export const MODEL_FILES = ['body', 'hair_buzzed', 'hair_simpleparted', 'hair_long', 'hair_buns', 'hair_beard'];
 const HAIR_FILE = {
   buzz: 'hair_buzzed', receding: 'hair_buzzed', crop: 'hair_buzzed', spiky: 'hair_buzzed', curly: 'hair_buzzed', mohawk: 'hair_buzzed',
@@ -187,6 +201,17 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
   const ch = character || {};
   const gltfs = useGLTF(MODEL_FILES.map(url));
   const files = Object.fromEntries(MODEL_FILES.map((f, i) => [f, gltfs[i]]));
+  const texList = useTexture(TEX_FILES.map(tex));
+  const T = useMemo(() => {
+    const t = Object.fromEntries(TEX_FILES.map((f, i) => [f, texList[i]]));
+    for (const [k, x] of Object.entries(t)) {
+      x.flipY = false;
+      x.colorSpace = /detail/.test(k) ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+      x.anisotropy = 4;
+      x.needsUpdate = true;
+    }
+    return t;
+  }, [texList]);
   const mats = useMats(ch);
   const left = ch.hand === 'left';
   const basePose = poseFor(poseKey || ch.pose);
@@ -205,23 +230,36 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
   const built = useMemo(() => {
     const scene = cloneSkinned(files.body.scene);
     const rig = buildRig(scene);
+    const axes = boneAxes(rig, CHILD);
     let body = null;
     scene.traverse(o => { if (o.isSkinnedMesh && o.name === 'SuperHero_Male') body = o; });
-    const skin = new THREE.MeshStandardMaterial({ color: ch.skin || '#c98f66', roughness: 0.62 });
+    const skin = detailMaterial(ch.skin || '#c98f66', T.skin_detail, T.skin_normal, { roughnessMap: T.skin_rough, roughness: 1, normalScale: new THREE.Vector2(0.7, 0.7) });
+    const tattoo = detailMaterial(new THREE.Color(ch.skin || '#c98f66').multiplyScalar(0.72), T.skin_detail, T.skin_normal, { roughness: 0.7 });
     const hands = (batting || keeper) ? mats.glove : skin;
     if (body) {
-      body.geometry = sculpted(kitGeometry(body, ch.sleeves === 'long', acc.includes('tattoo-sleeve')), face);
-      body.material = [skin, mats.jersey, mats.pants, mats.shoe, hands, mats.tattoo];
+      const kit = kitGeometry(body, ch.sleeves === 'long', acc.includes('tattoo-sleeve'));
+      body.geometry = sculpted(physique(kit, body.skeleton, axes, ch.build), face);
+      body.material = [skin, mats.jersey, mats.pants, mats.shoe, hands, tattoo];
       body.castShadow = true;
+      // loose jersey + trousers draped over the body (skinned to the same skeleton)
+      const cloth = (group, offset, material) => {
+        const g = clothGeometry(body.geometry, group, offset); if (!g) return;
+        const m = new THREE.SkinnedMesh(g, material);
+        m.bind(body.skeleton, body.bindMatrix);
+        m.frustumCulled = false; m.castShadow = true;
+        body.parent.add(m);
+      };
+      cloth(1, 0.011, new THREE.MeshStandardMaterial({ color: ch.jersey?.color || '#1f3a68', roughness: 0.78, metalness: 0.02 }));
+      cloth(2, 0.009, new THREE.MeshStandardMaterial({ color: mats.pants.color, roughness: 0.85 }));
     }
     scene.traverse(o => {
       if (!o.isSkinnedMesh) return;
       if (o !== body) o.geometry = sculpted(o.geometry, face);
-      if (o.name === 'Eyebrows') o.material = new THREE.MeshStandardMaterial({ color: ch.hair?.color || '#15110f', roughness: 0.9 });
+      if (o.name === 'Eyebrows') o.material = detailMaterial(ch.hair?.color || '#15110f', T.hair1_detail, T.hair1_normal, { roughness: 0.9, side: THREE.DoubleSide });
       if (o.name === 'Eyes' && !o.material.map) o.material = new THREE.MeshStandardMaterial({ color: '#f2efe9', roughness: 0.15 });
       o.frustumCulled = false;
     });
-    const attach = (file, material) => {
+    const attach = (file, makeMaterial) => {
       const src = files[file]?.scene; if (!src) return;
       src.traverse(o => {
         if (!o.isSkinnedMesh) return;
@@ -229,18 +267,22 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
         const sk = new THREE.Skeleton(o.skeleton.bones.map(b => rig.bones[b.name] || b), o.skeleton.boneInverses);
         m.bind(sk, o.bindMatrix);
         m.geometry = sculpted(o.geometry, face);
-        m.material = material; m.frustumCulled = false;
+        m.material = makeMaterial(HAIR_TEX[file] || 1); m.frustumCulled = false;
         (body?.parent || scene).add(m);
       });
     };
-    const hairMat = new THREE.MeshStandardMaterial({ color: ch.hair?.color || '#15110f', roughness: 0.85, side: THREE.DoubleSide });
-    const beardMat = new THREE.MeshStandardMaterial({ color: ch.beard?.color || ch.hair?.color || '#15110f', roughness: 0.9, side: THREE.DoubleSide,
+    const hairMat = k => detailMaterial(ch.hair?.color || '#15110f', T[`hair${k}_detail`], T[`hair${k}_normal`], { roughness: 0.78, side: THREE.DoubleSide });
+    const beardMat = k => detailMaterial(ch.beard?.color || ch.hair?.color || '#15110f', T[`hair${k}_detail`], T[`hair${k}_normal`], { roughness: 0.88, side: THREE.DoubleSide,
       transparent: beardStyle === 'stubble', opacity: beardStyle === 'stubble' ? 0.5 : 1 });
     if (hairStyle !== 'bald' && !(helmetLike && hairStyle !== 'long') && HAIR_FILE[hairStyle]) attach(HAIR_FILE[hairStyle], hairMat);
     if (GLB_BEARD.has(beardStyle)) attach('hair_beard', beardMat);
+    // fixed bounds for every skinned mesh: three.js would otherwise recompute them through the bones on
+    // the first render, which can run while a freshly cloned skeleton is still being swapped in
+    const bounds = new THREE.Sphere(new THREE.Vector3(0, 1, 0), 1.6);
+    scene.traverse(o => { if (o.isSkinnedMesh) { o.boundingSphere = bounds.clone(); o.boundingBox = new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(0, 1, 0), new THREE.Vector3(3, 3, 3)); } });
     return { scene, rig };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files.body, ch.skin, ch.sleeves, ch.hair?.color, ch.hair?.style, ch.beard?.style, ch.beard?.color, ch.headgear, batting, keeper, mats, acc.join(), faceKey]);
+  }, [files.body, T, ch.build, ch.jersey?.color, ch.skin, ch.sleeves, ch.hair?.color, ch.hair?.style, ch.beard?.style, ch.beard?.color, ch.headgear, batting, keeper, mats, acc.join(), faceKey]);
 
   const backTex = useMemo(() => backTexture(ch.jersey?.backName, ch.jersey?.number, ch.jersey?.color || '#1f3a68'), [ch.jersey?.backName, ch.jersey?.number, ch.jersey?.color]);
   useEffect(() => () => backTex.dispose(), [backTex]);
@@ -252,7 +294,7 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
   const sockets = { head: useRef(), handR: useRef(), handL: useRef(), calfL: useRef(), calfR: useRef(), chest: useRef(), neck: useRef(), foreL: useRef() };
   const batRef = useRef();
   const h = { short: 0.94, medium: 1, tall: 1.06 }[ch.height] || 1;
-  const w = { slim: 0.9, athletic: 0.97, stocky: 1.06, heavy: 1.15 }[ch.build] || 1;
+  const w = { slim: 0.97, athletic: 1, stocky: 1.03, heavy: 1.05 }[ch.build] || 1; // girth comes from physique(); this is just shoulder spread
 
   const q = useMemo(() => ({
     e: new THREE.Euler(), V: Object.fromEntries(JOINTS.map(j => [j, new THREE.Quaternion()])), tmp: new THREE.Quaternion(),

@@ -56,7 +56,7 @@ async function pack(src, dst) {
   for (const mesh of doc.getRoot().listMeshes()) for (const prim of mesh.listPrimitives()) {
     for (const sem of prim.listSemantics()) if (!KEEP.has(sem)) prim.setAttribute(sem, null);
   }
-  await doc.transform(prune(), dedup());
+  await doc.transform(prune({ keepAttributes: true }), dedup()); // keep UVs: detail textures are applied at runtime
   await io.write(path.join(OUT, dst), doc);
   console.log(`${dst}: ${(fs.statSync(path.join(OUT, dst)).size / 1024).toFixed(0)} KB`);
 }
@@ -64,4 +64,6 @@ async function pack(src, dst) {
 await pack('Superhero_Male_FullBody.gltf', 'body.glb');
 for (const h of ['Hair_Buzzed', 'Hair_SimpleParted', 'Hair_Long', 'Hair_Buns', 'Hair_Beard', 'Eyebrows_Regular']) await pack(`${h}.gltf`, `${h.toLowerCase()}.glb`);
 fs.copyFileSync(path.join(TMP, 'License_Standard.txt'), path.join(OUT, 'LICENSE-Quaternius-CC0.txt'));
+
+// textures are packed by scripts/models/pack-textures.mjs (separate process - sharp misbehaves after glTF-Transform here)
 console.log('done ->', path.relative(ROOT, OUT));

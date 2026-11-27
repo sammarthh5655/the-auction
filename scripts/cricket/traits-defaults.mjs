@@ -26,7 +26,18 @@ const COUNTRY_SKIN = {
   Ireland: ['light'], Netherlands: ['light'], Scotland: ['light'],
 };
 const HAIR_COLORS = { black: '#15110f', darkbrown: '#3b2618', brown: '#6a4529', blonde: '#d7b56d', ginger: '#b5562a', grey: '#9a9a9a', white: '#e8e8e8' };
-const NEUTRAL_JERSEYS = ['#1f3a68', '#2c2f3a', '#0f5257', '#5b2333', '#3d2f6b', '#1d5a3a', '#6b3f1d', '#22313f', '#4a1f5c', '#14465c'];
+const NEUTRAL_JERSEYS = ['#1f3a68', '#2c2f3a', '#0f5257', '#7a1f2b', '#3d2f6b', '#1d5a3a', '#2b4c7e', '#22313f', '#4a1f5c', '#14465c'];
+const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const colourDist = (a, b) => { const x = hexRgb(a), y = hexRgb(b); return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]); };
+/** a jersey colour that clearly contrasts with the skin (so nobody looks shirtless) */
+function pickJersey(skin, r) {
+  const start = Math.floor(r * NEUTRAL_JERSEYS.length);
+  for (let i = 0; i < NEUTRAL_JERSEYS.length; i++) {
+    const c = NEUTRAL_JERSEYS[(start + i) % NEUTRAL_JERSEYS.length];
+    if (!skin.startsWith('#') || colourDist(c, skin) > 90) return c;
+  }
+  return '#1f3a68';
+}
 const pick = (arr, r) => arr[Math.floor(r * arr.length) % arr.length];
 
 function seeded(str) {
@@ -58,8 +69,9 @@ export function buildCharacter({ id, name, country, role, traits }) {
     : role === 'AR' ? pick(['lofted-drive', 'fast-bowl', 'pull-shot'], r())
     : pick(['cover-drive', 'pull-shot', 'straight-drive', 'lofted-drive', 'bat-raise'], r());
   const hc = t.hairColor || hairColorKey;
+  const skinHex = t.skin ? (SKIN[t.skin]?.[1] || t.skin) : pick(SKIN[tone], r());
   return {
-    skin: t.skin ? (SKIN[t.skin]?.[1] || t.skin) : pick(SKIN[tone], r()),
+    skin: skinHex,
     hair: { style: t.hair || pick(['short', 'short', 'crop', 'side-part', 'textured', 'buzz', 'quiff'], r()), color: HAIR_COLORS[hc] || hc },
     beard: { style: t.beard || pick(['none', 'stubble', 'stubble', 'short', 'none', 'full'], r()), color: HAIR_COLORS[t.beardColor || hc] || HAIR_COLORS[hc] || hc },
     build: t.build || pick(['slim', 'athletic', 'athletic', 'stocky'], r()),
@@ -71,7 +83,7 @@ export function buildCharacter({ id, name, country, role, traits }) {
     jersey: {
       number: t.number ?? (1 + Math.floor(r() * 99)),
       backName: (t.backName || surname).toUpperCase().slice(0, 12),
-      color: t.jersey || pick(NEUTRAL_JERSEYS, r()),
+      color: t.jersey || pickJersey(skinHex, r()),
     },
     face: buildFace(t.face, r),
     pose: POSES.includes(t.pose) ? t.pose : defaultPose,

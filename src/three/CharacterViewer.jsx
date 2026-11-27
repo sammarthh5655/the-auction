@@ -1,7 +1,7 @@
 // Orbit-able preview of a 3D character (player detail + character creator).
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows, OrbitControls } from '@react-three/drei';
+import { ContactShadows, Environment, Lightformer, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { packCharacter } from './RevealStage.jsx';
 import CustomModel from './CustomModel.jsx';
@@ -19,6 +19,11 @@ export default function CharacterViewer({ player, pack, character, poseKey, auto
       <directionalLight position={[3, 5, 4]} intensity={2.1} color="#fff1d6" />
       <directionalLight position={[-3, 3, 3]} intensity={0.8} color="#cfe0ff" />
       <pointLight position={[-2, 2.5, -2.5]} intensity={12} distance={8} color="#f5c542" />
+      <Environment resolution={128} frames={1}>
+        <Lightformer intensity={1.6} position={[0, 4, 3]} scale={[5, 2, 1]} color="#fff3e0" />
+        <Lightformer intensity={0.8} position={[-4, 2, -2]} scale={[2, 4, 1]} color="#9fb6ff" />
+        <Lightformer intensity={1.2} position={[4, 1.5, -3]} scale={[2, 4, 1]} color="#ffd27a" />
+      </Environment>
       <mesh position={[0, 0.12, 0]}>
         <cylinderGeometry args={[0.8, 0.92, 0.24, 40]} />
         <meshStandardMaterial color="#141b30" metalness={0.7} roughness={0.35} />

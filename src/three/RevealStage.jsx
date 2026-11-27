@@ -6,7 +6,7 @@
  */
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Html, Sparkles } from '@react-three/drei';
+import { ContactShadows, Environment, Html, Lightformer, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 import CustomModel from './CustomModel.jsx';
 
@@ -128,6 +128,7 @@ function Pedestal({ start, marquee, children }) {
         <torusGeometry args={[0.82, 0.025, 8, 64]} />
         <meshStandardMaterial color={marquee ? '#ffd45a' : '#c9a24a'} emissive={marquee ? '#ffb800' : '#8a6a1a'} emissiveIntensity={1} metalness={1} roughness={0.2} />
       </mesh>
+      <ContactShadows position={[0, 0.352, 0]} opacity={0.55} scale={2.2} blur={2.4} far={1.6} resolution={256} />
       <group ref={spinner} position={[0, 0.35, 0]}>{children}</group>
     </group>
   );
@@ -212,6 +213,11 @@ export default function RevealStage({ player, pack, marquee, lotKey, onSlow }) {
         <circleGeometry args={[5, 48]} />
         <meshBasicMaterial map={floorTex} transparent depthWrite={false} />
       </mesh>
+      <Environment resolution={128} frames={1}>
+        <Lightformer intensity={1.1} position={[0, 5, 2]} scale={[4, 2, 1]} color="#fff1d6" />
+        <Lightformer intensity={0.7} position={[-4, 2, -2]} scale={[2, 4, 1]} color="#8ea2ff" />
+        <Lightformer intensity={marquee ? 1.6 : 0.9} position={[4, 2, -3]} scale={[2, 4, 1]} color={marquee ? '#ffcc55' : '#c7d4ff'} />
+      </Environment>
       <Smoke start={start} gold={marquee} />
       {marquee && <Sparkles count={70} scale={[4, 3.4, 3]} position={[0, 1.6, 0]} size={4} speed={0.5} color="#ffd45a" />}
       <Pedestal start={start} marquee={marquee}>

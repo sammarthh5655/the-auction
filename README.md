@@ -131,7 +131,9 @@ Each player is a **rigged 3D human** built from his trait fields in `players.jso
 
 - **Base model:** "Universal Base Characters" by [Quaternius](https://quaternius.itch.io/universal-base-characters), free Standard version, **CC0** (licence in `public/models/cricketer/`).
   - The body plus 5 hair pieces and a beard come to about 1 MB of GLB files.
-  - To rebuild them, save the Standard zip as `data-raw/models/ubc-standard.zip` and run `node scripts/models/pack-models.mjs`.
+  - To rebuild them, save the Standard zip as `data-raw/models/ubc-standard.zip`, then run `node scripts/models/pack-models.mjs` and `node scripts/models/pack-textures.mjs`.
+- **Skin and hair textures:** the pack's skin and hair textures become small greyscale "detail" maps plus normal maps (about 400 KB of WebP in `public/models/cricketer/tex/`). They are tinted at runtime to each player's skin and hair colour.
+- **Clothing and build:** the jersey and trousers are separate, slightly loose meshes, smoothed so they read as fabric over the body. Slim, athletic, stocky and heavy change the girth of the body itself (`src/sports/cricket/characterMesh.js`).
 - **Kit:** jersey, trousers and shoes are painted onto the body by bone region. The name and number go on the back. Pads, gloves, bat, ball, helmet or patka and accessories are attached to the skeleton.
 - **Face sculpting:** the head mesh is reshaped per player by `face` multipliers: head, width, length, jaw, cheeks, nose, brow, forehead, chin and ears. The 101 hand-styled players have tuned values (Rohit's round face, Bumrah's long narrow face, Gayle's heavy jaw, and so on). Everyone else gets a slight seeded variation.
 - **Signature poses** from `src/sports/cricket/poses.js` are retargeted onto the skeleton. A small IK solver puts both hands on the bat handle. Left-handers are mirrored.
