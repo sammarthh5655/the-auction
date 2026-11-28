@@ -141,3 +141,5 @@ export const POSE_LIBRARY = {
 };
 
 export const poseFor = key => POSE_LIBRARY[key] || POSE_LIBRARY.stand;
+/** Other sport packs add their own poses to the shared rig (see src/sports/football/poses.js). */
+export function registerPoses(defs) { for (const [k, v] of Object.entries(defs)) POSE_LIBRARY[k] = P(v); }

@@ -112,20 +112,20 @@ export default function Lobby({ room, isHost, actions, backend, pack, players, c
 
           {tab === 'money' && (
             <div className="settings-grid">
-              <Field label={`Purse per team (${cur.big})`} hint={`Minimum 50, recommended 100, no upper limit.`}>
+              <Field label={`Purse per team (${cur.big})`} hint={pack.purseHint || 'Minimum 50, recommended 100, no upper limit.'}>
                 <Stepper value={s.purse} min={50} max={1e6} step={5} unit={cur.big} onChange={v => edit(x => ({ ...x, purse: v }))} disabled={ro} />
               </Field>
               <Field label="Squad size (min - max)">
                 <div className="row"><Stepper value={s.squad.min} min={1} max={40} onChange={v => edit(x => { x.squad.min = v; if (x.squad.max < v) x.squad.max = v; return x; })} disabled={ro} />
                   <Stepper value={s.squad.max} min={s.squad.min} max={40} onChange={v => edit(x => { x.squad.max = v; return x; })} disabled={ro} /></div>
               </Field>
-              <Field label={`${pack.labels.overseas} limit`} hint="IPL: 8 per squad, 4 in the Playing XI">
+              {pack.domestic && <Field label={`${pack.labels.overseas} limit`} hint={pack.overseasHint}>
                 <Toggle checked={s.squad.overseasOn} onChange={v => edit(x => { x.squad.overseasOn = v; return x; })} label="Limit overseas players" disabled={ro} />
                 {s.squad.overseasOn && <div className="row" style={{ marginTop: 6 }}>
                   <span className="hint">Squad</span><Stepper value={s.squad.overseasMax} min={0} max={40} onChange={v => edit(x => { x.squad.overseasMax = v; return x; })} disabled={ro} />
                   <span className="hint">XI</span><Stepper value={s.squad.lineupOverseasMax} min={0} max={11} onChange={v => edit(x => { x.squad.lineupOverseasMax = v; return x; })} disabled={ro} />
                 </div>}
-              </Field>
+              </Field>}
               {pack.roles.map(r => {
                 const req = roleMins[r.key] || { on: false, min: 1 };
                 return (
@@ -149,10 +149,10 @@ export default function Lobby({ room, isHost, actions, backend, pack, players, c
                 {(pack.extraFilters || []).map(f => (
                   <Field key={f.key} label="Extra"><Toggle checked={s.pool.extra?.[f.key] ?? f.default} onChange={v => edit(x => { x.pool.extra = { ...x.pool.extra, [f.key]: v }; return x; })} label={f.label} disabled={ro} /></Field>
                 ))}
-                <Field label={`${pack.labels.domestic} vs ${pack.labels.overseas}`}>
+                {pack.domestic && <Field label={`${pack.labels.domestic} vs ${pack.labels.overseas}`}>
                   <Seg value={s.pool.origin} disabled={ro} onChange={v => edit(x => { x.pool.origin = v; return x; })}
                     options={[{ value: 'all', label: 'All' }, { value: 'domestic', label: `${pack.labels.domestic} only` }, { value: 'overseas', label: `${pack.labels.overseas} only` }]} />
-                </Field>
+                </Field>}
                 <Field label="Players to auction" hint="Should be at least teams x minimum squad">
                   <Stepper value={s.pool.count} min={10} max={1000} step={5} onChange={v => edit(x => { x.pool.count = v; return x; })} disabled={ro} />
                 </Field>

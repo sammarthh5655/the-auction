@@ -1,6 +1,6 @@
 // AI bidders. Sport-independent: they reason about OVR, roles (via pack.roleTargets), money and scarcity.
 import { clamp, hashStr, makeRng, values } from './util.js';
-import { bidCheck, isShort, lotBidCheck, purseLeft, purseMinor, squadCounts } from './rules.js';
+import { bidCheck, isShort, lotBidCheck, purseLeft, purseMinor, squadCounts, valueScore } from './rules.js';
 
 const DIFFICULTY = {
   easy: { noise: 0.38, delay: [1100, 3000], need: 0.35, pace: 0.4, snipe: 0.05, overpay: 1.12, jump: 0.15 },
@@ -35,7 +35,7 @@ export function botValuation(team, player, ctx) {
   const d = DIFFICULTY[s.bots.difficulty] || DIFFICULTY.medium;
   const prof = botProfile(team, s.seed);
   const total = purseMinor(s, pack);
-  let v = (total * marketShare(player.ovr)) / 100;
+  let v = (total * marketShare(valueScore(player))) / 100;
 
   // squad needs
   const counts = squadCounts(team, playersById);
@@ -49,10 +49,17 @@ export function botValuation(team, player, ctx) {
   // every bot knows a lineup needs the essentials (e.g. a keeper, 5 bowling options) - strategy, not a rule
   const essential = pack.essentialRoles?.[player.role] || 0;
   const essentialGap = have < essential;
+  // bot strategy (never a rule): secure the essentials (a goalkeeper / wicketkeeper, enough bowlers...)
+  const deficits = Object.entries(pack.essentialRoles || {}).reduce((a, [r, k]) => a + Math.max(0, k - (counts.roles[r] || 0)), 0);
+  const slotsLeft = s.squad.max - counts.size;
+  if (!essentialGap && deficits >= slotsLeft) return 0; // keep the last slots for what the XI still lacks
+  const cap = pack.roleCaps?.[player.role];
+  if (cap && have >= cap) v *= 0.12; // a third keeper never plays - leave him for teams that need one
   if (essentialGap) {
-    v *= 1.3;
+    v *= 1.5;
     const left = remaining.filter(p => p.role === player.role).length;
-    if (left <= values(ctx.teams || {}).length) v *= 1.8; // last chance to get one
+    const lacking = values(ctx.teams || {}).filter(t => (squadCounts(t, playersById).roles[player.role] || 0) < essential).length;
+    if (left <= Math.max(2, lacking * 2) || slotsLeft <= deficits + 2) v = Math.max(v * 1.8, (ctx.base || 0) * 2.5); // last chance
   }
 
   if (s.squad.overseasOn && player.overseas) {
@@ -83,6 +90,11 @@ export function botValuation(team, player, ctx) {
   const nr = makeRng(hashStr(`${team.id}|${player.id}|${s.seed}`))();
   v *= 1 + (nr * 2 - 1) * d.noise;
   v *= d.overpay * prof.aggression;
+
+  // budget discipline: never sink more than a fair share of what is left into one player
+  // (early on ~1/7 of the purse; the share grows as the squad fills up)
+  const fairShare = purseLeft(team, s, pack) * Math.min(0.5, 2.4 / Math.max(1, target - counts.size));
+  v = Math.min(v, fairShare * (essentialGap ? 1.6 : 1));
 
   // must still fill the minimum squad: when short and the pool is running dry, buy at base
   if (isShort(team, ctx)) {
@@ -135,7 +147,7 @@ export function botWantsRtm(team, player, price, ctx) {
 /** Bot choice during the retention draft. Returns { pid, kind } or null to finish. */
 export function botDraftPick(team, available, ctx, mode) {
   const { settings: s, pack } = ctx;
-  const sorted = available.slice().sort((a, b) => b.ovr - a.ovr);
+  const sorted = available.slice().sort((a, b) => valueScore(b) - valueScore(a));
   for (const p of sorted.slice(0, 12)) {
     const val = botValuation(team, p, { ...ctx, base: 0, teams: ctx.teams });
     if (mode.canRetain && mode.cost <= val * 1.15 && bidCheck(team, p, mode.cost, ctx).ok) return { pid: p.id, kind: 'retain' };

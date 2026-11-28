@@ -75,7 +75,7 @@ export default function PlayerDetail({ player, pack, onClose, extra }) {
             <span className={`tag ${player.status === 'retired' ? '' : 'good'}`}>{player.status}</span>
             {age && <span className="tag">{player.status === 'retired' ? `Born ${player.dob}` : `Age ${age}`}</span>}
             <span className="tag">{player.years[0]}–{player.years[1]}</span>
-            {player.teams?.length > 0 && <span className="tag" title={player.teams.join(', ')}>{player.teams.length} franchise{player.teams.length > 1 ? 's' : ''}</span>}
+            {player.teams?.length > 0 && <span className="tag" title={player.teams.join(', ')}>{player.teams.length} {pack.labels.team || 'team'}{player.teams.length > 1 ? 's' : ''}</span>}
           </div>
           <Seg value={tab} onChange={setTab} options={tabs} />
           {tab === 'stats' && <StatTables player={player} pack={pack} />}
@@ -86,7 +86,7 @@ export default function PlayerDetail({ player, pack, onClose, extra }) {
                 : <div className="center muted" style={{ paddingTop: 180 }}>3D is not available on this device.</div>}
             </div>
           )}
-          {player.teams?.length > 0 && tab === 'stats' && <div className="hint">Franchises: {player.teams.join(' · ')}</div>}
+          {player.teams?.length > 0 && tab === 'stats' && <div className="hint">{(pack.labels.team || 'team').replace(/^./, c => c.toUpperCase())}s: {player.teams.join(' · ')}</div>}
           <div className="hint">{pack.sourceNote}{player.sources?.country ? ` Country via ${player.sources.country}.` : ''}</div>
         </div>
       </div>

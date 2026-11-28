@@ -1,0 +1,1061 @@
+{
+ "_comment": "Football character traits (no stats). Keyed by the player's name in the dataset (accents optional). Same fields as cricket traits; pose from: shoot, dribble, header, bicycle-kick, knee-slide, siu-jump, arms-wide, free-kick, keeper-dive, keeper-catch, tackle, arms-crossed, pass.",
+ "Lionel Messi": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "short",
+  "number": 10,
+  "pose": "dribble",
+  "hand": "left",
+  "face": {
+   "width": 1.04,
+   "cheeks": 1.04,
+   "nose": 1.03
+  }
+ },
+ "Cristiano Ronaldo": {
+  "skin": "tan",
+  "hair": "quiff",
+  "hairColor": "darkbrown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "number": 7,
+  "pose": "siu-jump",
+  "hand": "right",
+  "face": {
+   "jaw": 1.08,
+   "length": 1.04,
+   "brow": 1.05
+  }
+ },
+ "Neymar": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "darkbrown",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "number": 10,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.06,
+   "width": 0.95
+  }
+ },
+ "Kylian Mbappé": {
+  "skin": "brown",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "athletic",
+  "height": "medium",
+  "number": 10,
+  "pose": "arms-crossed",
+  "hand": "right",
+  "face": {
+   "cheeks": 1.04,
+   "nose": 1.05
+  }
+ },
+ "Erling Haaland": {
+  "skin": "light",
+  "hair": "man-bun",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "heavy",
+  "height": "tall",
+  "number": 9,
+  "pose": "knee-slide",
+  "hand": "left",
+  "face": {
+   "length": 1.08,
+   "jaw": 1.1,
+   "chin": 1.06
+  }
+ },
+ "Mohamed Salah": {
+  "skin": "brown",
+  "hair": "afro",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "number": 11,
+  "pose": "shoot",
+  "hand": "left",
+  "face": {
+   "cheeks": 1.03
+  }
+ },
+ "Kevin De Bruyne": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "ginger",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "number": 17,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.05,
+   "cheeks": 0.95
+  },
+  "beardColor": "ginger"
+ },
+ "Luka Modrić": {
+  "skin": "light",
+  "hair": "long",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 10,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.06,
+   "width": 0.93,
+   "cheeks": 0.92
+  }
+ },
+ "Robert Lewandowski": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "length": 1.05,
+   "jaw": 1.04
+  }
+ },
+ "Karim Benzema": {
+  "skin": "tan",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "jaw": 1.06,
+   "nose": 1.05
+  }
+ },
+ "Harry Kane": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "length": 1.06,
+   "jaw": 1.04
+  }
+ },
+ "Jude Bellingham": {
+  "skin": "brown",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "number": 5,
+  "pose": "arms-wide",
+  "hand": "right",
+  "face": {
+   "jaw": 1.04,
+   "length": 1.03
+  }
+ },
+ "Vinicius Junior": {
+  "skin": "deep",
+  "hair": "dreadlocks",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 7,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.04,
+   "cheeks": 1.02
+  }
+ },
+ "Toni Kroos": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "number": 8,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.04,
+   "width": 0.97
+  }
+ },
+ "Virgil van Dijk": {
+  "skin": "brown",
+  "hair": "crop",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "heavy",
+  "height": "tall",
+  "number": 4,
+  "pose": "header",
+  "hand": "right",
+  "face": {
+   "jaw": 1.08,
+   "head": 1.03
+  }
+ },
+ "Sergio Ramos": {
+  "skin": "tan",
+  "hair": "man-bun",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "number": 4,
+  "pose": "header",
+  "hand": "right",
+  "face": {
+   "jaw": 1.06
+  },
+  "accessories": [
+   "tattoo-sleeve"
+  ]
+ },
+ "Luis Suárez": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "medium",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "length": 1.05,
+   "nose": 1.04
+  }
+ },
+ "Antoine Griezmann": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "slim",
+  "height": "short",
+  "number": 7,
+  "pose": "arms-wide",
+  "hand": "left",
+  "face": {
+   "width": 0.97
+  }
+ },
+ "N'Golo Kanté": {
+  "skin": "deep",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 7,
+  "pose": "tackle",
+  "hand": "right",
+  "face": {
+   "cheeks": 1.04,
+   "width": 1.02
+  }
+ },
+ "Paul Pogba": {
+  "skin": "deep",
+  "hair": "mohawk",
+  "hairColor": "blonde",
+  "beard": "short",
+  "build": "athletic",
+  "height": "tall",
+  "number": 6,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.06
+  }
+ },
+ "Heung-min Son": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "athletic",
+  "height": "medium",
+  "number": 7,
+  "pose": "arms-wide",
+  "hand": "right",
+  "face": {
+   "cheeks": 1.03
+  }
+ },
+ "Alisson": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "heavy",
+  "height": "tall",
+  "number": 1,
+  "pose": "keeper-catch",
+  "hand": "right",
+  "face": {
+   "jaw": 1.04
+  }
+ },
+ "Manuel Neuer": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "heavy",
+  "height": "tall",
+  "number": 1,
+  "pose": "keeper-dive",
+  "hand": "right",
+  "face": {
+   "length": 1.06,
+   "jaw": 1.06
+  }
+ },
+ "Thibaut Courtois": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "number": 1,
+  "pose": "keeper-dive",
+  "hand": "right",
+  "face": {
+   "length": 1.1,
+   "width": 0.95
+  }
+ },
+ "Marc-André ter Stegen": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "number": 1,
+  "pose": "keeper-catch",
+  "hand": "right"
+ },
+ "Zlatan Ibrahimović": {
+  "skin": "light",
+  "hair": "man-bun",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "heavy",
+  "height": "tall",
+  "number": 10,
+  "pose": "bicycle-kick",
+  "hand": "right",
+  "face": {
+   "nose": 1.12,
+   "length": 1.08,
+   "jaw": 1.06
+  }
+ },
+ "Gareth Bale": {
+  "skin": "light",
+  "hair": "man-bun",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "athletic",
+  "height": "tall",
+  "number": 11,
+  "pose": "shoot",
+  "hand": "left",
+  "face": {
+   "length": 1.04
+  }
+ },
+ "Eden Hazard": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "short",
+  "build": "stocky",
+  "height": "short",
+  "number": 10,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "cheeks": 1.05,
+   "width": 1.03
+  }
+ },
+ "Romelu Lukaku": {
+  "skin": "deep",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "heavy",
+  "height": "tall",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "left",
+  "face": {
+   "head": 1.04,
+   "jaw": 1.08
+  }
+ },
+ "Thomas Müller": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "tall",
+  "number": 25,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.08,
+   "width": 0.94,
+   "ears": 1.06
+  }
+ },
+ "Sergio Busquets": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "slim",
+  "height": "tall",
+  "number": 5,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.08,
+   "width": 0.94,
+   "nose": 1.06
+  }
+ },
+ "Andrés Iniesta": {
+  "skin": "light",
+  "hair": "bald",
+  "hairColor": "darkbrown",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 8,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.05,
+   "width": 0.95
+  }
+ },
+ "Gianluigi Buffon": {
+  "skin": "light",
+  "hair": "slick-back",
+  "hairColor": "darkbrown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "number": 1,
+  "pose": "keeper-catch",
+  "hand": "right",
+  "face": {
+   "jaw": 1.06,
+   "nose": 1.06
+  }
+ },
+ "Philipp Lahm": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 21,
+  "pose": "tackle",
+  "hand": "right",
+  "face": {
+   "width": 0.96
+  }
+ },
+ "Marcelo": {
+  "skin": "tan",
+  "hair": "afro",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "stocky",
+  "height": "short",
+  "number": 12,
+  "pose": "dribble",
+  "hand": "left",
+  "face": {
+   "cheeks": 1.05
+  }
+ },
+ "Rodri": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "short",
+  "build": "athletic",
+  "height": "tall",
+  "number": 16,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.05
+  }
+ },
+ "Bukayo Saka": {
+  "skin": "deep",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 7,
+  "pose": "dribble",
+  "hand": "left",
+  "face": {
+   "cheeks": 1.03
+  }
+ },
+ "Phil Foden": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 47,
+  "pose": "shoot",
+  "hand": "left",
+  "face": {
+   "width": 0.96
+  }
+ },
+ "Pedri": {
+  "skin": "light",
+  "hair": "textured",
+  "hairColor": "darkbrown",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 8,
+  "pose": "pass",
+  "hand": "right",
+  "face": {
+   "length": 1.04,
+   "width": 0.95
+  }
+ },
+ "Lamine Yamal": {
+  "skin": "brown",
+  "hair": "curly",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 19,
+  "pose": "dribble",
+  "hand": "left",
+  "face": {
+   "cheeks": 1.04,
+   "length": 0.96
+  }
+ },
+ "Jamal Musiala": {
+  "skin": "brown",
+  "hair": "curly",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 10,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.04
+  }
+ },
+ "Florian Wirtz": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 10,
+  "pose": "pass",
+  "hand": "right"
+ },
+ "Victor Osimhen": {
+  "skin": "deep",
+  "hair": "mohawk",
+  "hairColor": "blonde",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "length": 1.05
+  }
+ },
+ "Khvicha Kvaratskhelia": {
+  "skin": "light",
+  "hair": "curly",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "tall",
+  "number": 7,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.06,
+   "width": 0.95
+  }
+ },
+ "Paulo Dybala": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "short",
+  "build": "slim",
+  "height": "short",
+  "number": 10,
+  "pose": "arms-wide",
+  "hand": "left"
+ },
+ "Wayne Rooney": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "stocky",
+  "height": "short",
+  "number": 10,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "head": 1.04,
+   "width": 1.06,
+   "cheeks": 1.06
+  }
+ },
+ "Steven Gerrard": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "medium",
+  "number": 8,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "length": 1.05
+  }
+ },
+ "Sergio Agüero": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "stocky",
+  "height": "short",
+  "number": 10,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "cheeks": 1.05
+  }
+ },
+ "David Silva": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "slim",
+  "height": "short",
+  "number": 21,
+  "pose": "pass",
+  "hand": "left"
+ },
+ "Arjen Robben": {
+  "skin": "light",
+  "hair": "bald",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 10,
+  "pose": "shoot",
+  "hand": "left",
+  "face": {
+   "length": 1.06,
+   "width": 0.95
+  }
+ },
+ "Franck Ribéry": {
+  "skin": "light",
+  "hair": "buzz",
+  "hairColor": "darkbrown",
+  "beard": "short",
+  "build": "stocky",
+  "height": "short",
+  "number": 7,
+  "pose": "dribble",
+  "hand": "right"
+ },
+ "Riyad Mahrez": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "number": 26,
+  "pose": "dribble",
+  "hand": "left",
+  "face": {
+   "length": 1.04,
+   "width": 0.96
+  }
+ },
+ "Lautaro Martínez": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "number": 10,
+  "pose": "shoot",
+  "hand": "right",
+  "face": {
+   "jaw": 1.04
+  }
+ },
+ "Marcus Rashford": {
+  "skin": "deep",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "number": 10,
+  "pose": "shoot",
+  "hand": "right"
+ },
+ "Rúben Dias": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "tall",
+  "number": 3,
+  "pose": "header",
+  "hand": "right",
+  "face": {
+   "jaw": 1.06
+  }
+ },
+ "Joshua Kimmich": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 6,
+  "pose": "pass",
+  "hand": "right"
+ },
+ "Casemiro": {
+  "skin": "tan",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "stocky",
+  "height": "medium",
+  "number": 18,
+  "pose": "tackle",
+  "hand": "right",
+  "face": {
+   "jaw": 1.06,
+   "width": 1.04
+  }
+ },
+ "Ederson": {
+  "skin": "tan",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "heavy",
+  "height": "tall",
+  "number": 31,
+  "pose": "keeper-catch",
+  "hand": "left",
+  "accessories": [
+   "tattoo-sleeve",
+   "keeper-gloves"
+  ]
+ },
+ "Jan Oblak": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "none",
+  "build": "athletic",
+  "height": "tall",
+  "number": 13,
+  "pose": "keeper-dive",
+  "hand": "right",
+  "face": {
+   "length": 1.05
+  }
+ },
+ "Gerard Piqué": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "tall",
+  "number": 3,
+  "pose": "header",
+  "hand": "right",
+  "face": {
+   "length": 1.06
+  }
+ },
+ "Trent Alexander-Arnold": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "athletic",
+  "height": "medium",
+  "number": 66,
+  "pose": "free-kick",
+  "hand": "right"
+ },
+ "Achraf Hakimi": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "tall",
+  "number": 2,
+  "pose": "dribble",
+  "hand": "right",
+  "face": {
+   "length": 1.05
+  }
+ },
+ "Federico Valverde": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "number": 8,
+  "pose": "shoot",
+  "hand": "right"
+ },
+ "Cole Palmer": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "ginger",
+  "beard": "none",
+  "build": "slim",
+  "height": "tall",
+  "number": 20,
+  "pose": "arms-crossed",
+  "hand": "left",
+  "face": {
+   "length": 1.05,
+   "width": 0.95
+  }
+ },
+ "Raheem Sterling": {
+  "skin": "deep",
+  "hair": "short",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "short",
+  "number": 7,
+  "pose": "dribble",
+  "hand": "right"
+ },
+ "Ángel Di María": {
+  "skin": "light",
+  "hair": "textured",
+  "hairColor": "darkbrown",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 11,
+  "pose": "dribble",
+  "hand": "left",
+  "face": {
+   "length": 1.08,
+   "width": 0.93,
+   "ears": 1.06
+  }
+ },
+ "Edinson Cavani": {
+  "skin": "tan",
+  "hair": "long",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "medium",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right"
+ },
+ "İlkay Gündoğan": {
+  "skin": "tan",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "slim",
+  "height": "medium",
+  "number": 8,
+  "pose": "pass",
+  "hand": "right"
+ },
+ "Mesut Özil": {
+  "skin": "tan",
+  "hair": "slick-back",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "medium",
+  "number": 10,
+  "pose": "pass",
+  "hand": "left",
+  "face": {
+   "brow": 1.06
+  }
+ },
+ "Giorgio Chiellini": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "stubble",
+  "build": "athletic",
+  "height": "tall",
+  "number": 3,
+  "pose": "tackle",
+  "hand": "right",
+  "face": {
+   "jaw": 1.06
+  }
+ },
+ "Mats Hummels": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "darkbrown",
+  "beard": "full",
+  "build": "athletic",
+  "height": "tall",
+  "number": 5,
+  "pose": "header",
+  "hand": "right"
+ },
+ "Roberto Firmino": {
+  "skin": "tan",
+  "hair": "textured",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "number": 9,
+  "pose": "shoot",
+  "hand": "right"
+ },
+ "Sadio Mané": {
+  "skin": "deep",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "slim",
+  "height": "short",
+  "number": 10,
+  "pose": "shoot",
+  "hand": "right"
+ },
+ "Thiago Silva": {
+  "skin": "tan",
+  "hair": "buzz",
+  "hairColor": "black",
+  "beard": "short",
+  "build": "athletic",
+  "height": "medium",
+  "number": 3,
+  "pose": "header",
+  "hand": "right"
+ },
+ "Andrew Robertson": {
+  "skin": "light",
+  "hair": "short",
+  "hairColor": "brown",
+  "beard": "short",
+  "build": "slim",
+  "height": "short",
+  "number": 26,
+  "pose": "tackle",
+  "hand": "left"
+ },
+ "Ousmane Dembélé": {
+  "skin": "deep",
+  "hair": "curly",
+  "hairColor": "black",
+  "beard": "none",
+  "build": "slim",
+  "height": "medium",
+  "number": 10,
+  "pose": "dribble",
+  "hand": "right"
+ }
+}

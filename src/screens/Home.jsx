@@ -36,7 +36,7 @@ export default function Home({ pack, sportId, onSport, players }) {
         <div className="hero-kicker">Bid · Build · Win</div>
         <div className="hero-title">THE AUCTION</div>
         <p className="hero-sub">
-          The school-bench auction game, IPL style. Bid for real players with a fixed purse, build the best squad, and let
+          The school-bench auction game, IPL style - now for cricket and football. Bid for real players with a fixed purse, build the best squad, and let
           real stats decide whose team is better. No luck, no simulations - just the verdict.
         </p>
       </section>
@@ -72,7 +72,7 @@ export default function Home({ pack, sportId, onSport, players }) {
       {hasSave && <div className="center" style={{ marginTop: 16 }}><Button variant="primary" onClick={() => go('/solo')}>Resume your solo auction</Button></div>}
 
       <div className="feature-strip">
-        <div className="feature"><b>{players ? players.length : '…'} real players</b>Every IPL season 2008–2026 plus T20I stars, built from Cricsheet ball-by-ball data.</div>
+        <div className="feature"><b>{players ? players.length.toLocaleString() : '…'} real players</b>{pack.homeBlurb}</div>
         <div className="feature"><b>Transparent ratings</b>Era-adjusted percentile scores by role. Every card shows exactly how its rating was made.</div>
         <div className="feature"><b>3D player reveals</b>Spotlight, smoke and a spinning pedestal - each player in their signature pose.</div>
         <div className="feature"><b>The verdict</b>Pick your Playing XI. The site compares batting, bowling, balance and more - and names the winner.</div>

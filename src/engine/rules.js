@@ -1,6 +1,12 @@
 // Money, eligibility and squad rules. Sport-independent: everything sport-specific comes from the pack.
 import { values, sum } from './util.js';
 
+/**
+ * Auction "value score" (25-99): the player's rank within his role on a curved scale. Prices, marquee
+ * status and bot valuations use it, so the auction economy is independent of how OVR is displayed.
+ */
+export const valueScore = p => (p?.rating?.rolePct != null ? 35 + 64 * Math.pow(p.rating.rolePct / 100, 1.6) : p.ovr);
+
 /** Scale factor between the host's purse and the pack's reference purse. */
 export const purseScale = (s, pack) => (s.pricing.scaleWithPurse ? s.purse / (pack.referencePurse || 100) : 1);
 export const purseMinor = (s, pack) => Math.round(s.purse * pack.currency.bigFactor);

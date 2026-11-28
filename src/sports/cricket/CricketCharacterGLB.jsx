@@ -50,8 +50,8 @@ const PANTS = /^(pelvis|thigh_[lr]|calf_[lr])$/;
 const SHOES = /^(foot_[lr]|ball_[lr]|ball_leaf_[lr])$/;
 const HANDS = /^(hand_[lr]|(index|middle|ring|pinky|thumb)_.*)$/;
 const kitCache = new Map();
-function kitGeometry(mesh, longSleeves, tattoo) {
-  const key = `${mesh.geometry.uuid}|${longSleeves}|${tattoo}`;
+function kitGeometry(mesh, longSleeves, tattoo, football = false) {
+  const key = `${mesh.geometry.uuid}|${longSleeves}|${tattoo}|${football}`;
   if (kitCache.has(key)) return kitCache.get(key);
   const g = mesh.geometry.clone();
   const idx = g.index ? g.index.array : Array.from({ length: g.attributes.position.count }, (_, i) => i);
@@ -62,10 +62,11 @@ function kitGeometry(mesh, longSleeves, tattoo) {
     let bi = 0, bw = -1;
     for (let k = 0; k < 4; k++) { const w = sw.getComponent(i, k); if (w > bw) { bw = w; bi = sj.getComponent(i, k); } }
     const n = names[bi];
-    cls[i] = JERSEY.test(n) || (longSleeves && /^lowerarm_[lr]$/.test(n)) ? 1 : PANTS.test(n) ? 2 : SHOES.test(n) ? 3 : HANDS.test(n) ? 4
+    // football: shorts stop at the knee and the shins wear socks (group 6)
+    cls[i] = JERSEY.test(n) || (longSleeves && /^lowerarm_[lr]$/.test(n)) ? 1 : football && /^calf_[lr]$/.test(n) ? 6 : PANTS.test(n) ? 2 : SHOES.test(n) ? 3 : HANDS.test(n) ? 4
       : tattoo && /^lowerarm_l$/.test(n) ? 5 : 0;
   }
-  const buckets = [[], [], [], [], [], []];
+  const buckets = [[], [], [], [], [], [], []];
   for (let t = 0; t < idx.length; t += 3) {
     const a = cls[idx[t]], b = cls[idx[t + 1]], c = cls[idx[t + 2]];
     const k = a === b || a === c ? a : b === c ? b : a;
@@ -152,7 +153,7 @@ function mirrorPose(p) {
   return {
     ...p, hips: m(p.hips), spine: m(p.spine), head: m(p.head),
     lSh: m(p.rSh), rSh: m(p.lSh), lEl: m(p.rEl), rEl: m(p.lEl), lHip: m(p.rHip), rHip: m(p.lHip), lKnee: m(p.rKnee), rKnee: m(p.lKnee),
-    bat: p.bat && m(p.bat), motion: (p.motion || []).map(x => ({ ...x, j: x.j.replace(/^l/, '#').replace(/^r/, 'l').replace(/^#/, 'r'), amp: x.a === 0 ? x.amp : -x.amp })),
+    bat: p.bat && m(p.bat), football: p.football === 'R' ? 'L' : p.football === 'L' ? 'R' : p.football, motion: (p.motion || []).map(x => ({ ...x, j: x.j.replace(/^l/, '#').replace(/^r/, 'l').replace(/^#/, 'r'), amp: x.a === 0 ? x.amp : -x.amp })),
   };
 }
 
@@ -176,6 +177,26 @@ function buildRig(scene) {
 }
 
 function Socket({ sref, children }) { return <group ref={sref}>{children}</group>; }
+
+let ballTex = null;
+/** Classic white ball with dark panels (canvas texture, no assets needed). */
+function Football(props) {
+  if (!ballTex && typeof document !== 'undefined') {
+    const c = document.createElement('canvas'); c.width = 512; c.height = 256;
+    const g = c.getContext('2d');
+    g.fillStyle = '#f5f5f2'; g.fillRect(0, 0, 512, 256);
+    g.fillStyle = '#1c1f26';
+    const pent = (x, y, r) => { g.beginPath(); for (let i = 0; i < 5; i++) { const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5; g.lineTo(x + r * Math.cos(a), y + r * Math.sin(a)); } g.closePath(); g.fill(); };
+    for (let row = 0; row < 3; row++) for (let i = 0; i < 6; i++) pent(i * 85 + (row % 2) * 42 + 20, 40 + row * 85, 22);
+    ballTex = new THREE.CanvasTexture(c); ballTex.colorSpace = THREE.SRGBColorSpace;
+  }
+  return (
+    <mesh {...props} castShadow>
+      <sphereGeometry args={[0.11, 24, 16]} />
+      <meshStandardMaterial map={ballTex} roughness={0.45} />
+    </mesh>
+  );
+}
 
 /**
  * Cricket pad in the shin's frame (shin runs down -Y, front is +Z): three vertical padded bolsters ("canes"),
@@ -248,6 +269,8 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
   const stand = useMemo(() => (left ? mirrorPose(poseFor('stand')) : poseFor('stand')), [left]);
   const batting = !!pose.bat;
   const keeper = !!pose.keeper;
+  const isFootball = ch.kit === 'football';
+  const keeperGloves = !!pose.keeperGloves || (isFootball && (ch.accessories || []).includes('keeper-gloves'));
   const acc = ch.accessories || [];
   const hairStyle = ch.hair?.style || 'short';
   const beardStyle = ch.beard?.style || 'none';
@@ -265,11 +288,12 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
     scene.traverse(o => { if (o.isSkinnedMesh && o.name === 'SuperHero_Male') body = o; });
     const skin = detailMaterial(ch.skin || '#c98f66', T.skin_detail, T.skin_normal, { roughnessMap: T.skin_rough, roughness: 1, normalScale: new THREE.Vector2(0.7, 0.7) });
     const tattoo = detailMaterial(new THREE.Color(ch.skin || '#c98f66').multiplyScalar(0.72), T.skin_detail, T.skin_normal, { roughness: 0.7 });
-    const hands = (batting || keeper) ? mats.glove : skin;
+    const hands = keeperGloves ? mats.keeperGlove : (batting || keeper) ? mats.glove : skin;
     if (body) {
-      const kit = kitGeometry(body, ch.sleeves === 'long', acc.includes('tattoo-sleeve'));
+      const kit = kitGeometry(body, ch.sleeves === 'long', acc.includes('tattoo-sleeve'), isFootball);
       body.geometry = sculpted(physique(kit, body.skeleton, axes, ch.build), face);
-      body.material = [skin, mats.jersey, mats.pants, mats.shoe, hands, tattoo];
+      const socks = new THREE.MeshStandardMaterial({ color: ch.socks || ch.jersey?.color || '#f2f2f2', roughness: 0.85 });
+      body.material = [skin, mats.jersey, mats.pants, mats.shoe, hands, tattoo, socks];
       body.castShadow = true;
       // loose jersey + trousers draped over the body (skinned to the same skeleton)
       const cloth = (group, offset, material) => {
@@ -286,7 +310,7 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
         printed = jt.printed;
         return new THREE.MeshStandardMaterial({ map: jt.texture, roughness: 0.78, metalness: 0.02 });
       });
-      cloth(2, 0.009, new THREE.MeshStandardMaterial({ color: mats.pants.color, roughness: 0.85 }));
+      cloth(2, isFootball ? 0.018 : 0.009, new THREE.MeshStandardMaterial({ color: mats.pants.color, roughness: 0.85 }));
     }
     scene.traverse(o => {
       if (!o.isSkinnedMesh) return;
@@ -318,7 +342,7 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
     scene.traverse(o => { if (o.isSkinnedMesh) { o.boundingSphere = bounds.clone(); o.boundingBox = new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(0, 1, 0), new THREE.Vector3(3, 3, 3)); } });
     return { scene, rig, printed };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files.body, T, ch.build, ch.jersey?.color, ch.jersey?.backName, ch.jersey?.number, ch.skin, ch.sleeves, ch.hair?.color, ch.hair?.style, ch.beard?.style, ch.beard?.color, ch.headgear, batting, keeper, mats, acc.join(), faceKey]);
+  }, [files.body, T, isFootball, keeperGloves, ch.socks, ch.build, ch.jersey?.color, ch.jersey?.backName, ch.jersey?.number, ch.skin, ch.sleeves, ch.hair?.color, ch.hair?.style, ch.beard?.style, ch.beard?.color, ch.headgear, batting, keeper, mats, acc.join(), faceKey]);
 
   const backTex = useMemo(() => backTexture(ch.jersey?.backName, ch.jersey?.number, ch.jersey?.color || '#1f3a68'), [ch.jersey?.backName, ch.jersey?.number, ch.jersey?.color]);
   useEffect(() => () => backTex.dispose(), [backTex]);
@@ -327,7 +351,7 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
   const model = useRef();
   const cur = useRef(Object.fromEntries(JOINTS.map(j => [j, stand[j].slice()])));
   const drop = useRef(0);
-  const sockets = { head: useRef(), handR: useRef(), handL: useRef(), calfL: useRef(), calfR: useRef(), chest: useRef(), neck: useRef(), foreL: useRef() };
+  const sockets = { head: useRef(), handR: useRef(), handL: useRef(), calfL: useRef(), calfR: useRef(), chest: useRef(), neck: useRef(), foreL: useRef(), footL: useRef(), footR: useRef() };
   const batRef = useRef();
   const h = { short: 0.94, medium: 1, tall: 1.06 }[ch.height] || 1;
   const w = { slim: 0.97, athletic: 1, stocky: 1.03, heavy: 1.05 }[ch.build] || 1; // girth comes from physique(); this is just shoulder spread
@@ -400,6 +424,8 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
     place(sockets.handL, 'hand_l', V.lEl, [0, -0.05, 0]);
     place(sockets.calfL, 'calf_l', V.lKnee);
     place(sockets.calfR, 'calf_r', V.rKnee);
+    place(sockets.footL, 'ball_l', V.lKnee);
+    place(sockets.footR, 'ball_r', V.rKnee);
     place(sockets.chest, 'spine_03', V.spine);
     place(sockets.neck, 'neck_01', V.spine);
     place(sockets.foreL, 'lowerarm_l', V.lEl);
@@ -466,6 +492,10 @@ export default function CricketCharacterGLB({ character, poseKey, strike = 1, id
         {keeper && <mesh material={mats.keeperGlove} position={[0, -0.03, 0]}><boxGeometry args={[0.11, 0.13, 0.07]} /></mesh>}</Socket>
       <Socket sref={sockets.handL}>{acc.includes('wristbands') && <mesh material={mats.white} position={[0, 0.06, 0]}><cylinderGeometry args={[0.036, 0.034, 0.045, 12]} /></mesh>}{left && pose.bat && <group ref={batRef}><Bat mats={mats} /></group>}{left && pose.ball && <mesh material={mats.ball} position={[0, -0.05, 0.03]}><icosahedronGeometry args={[0.036, 1]} /></mesh>}
         {keeper && <mesh material={mats.keeperGlove} position={[0, -0.03, 0]}><boxGeometry args={[0.11, 0.13, 0.07]} /></mesh>}</Socket>
+      {pose.football === 'R' && <Socket sref={sockets.footR}><Football position={[0, -0.03, 0.13]} /></Socket>}
+      {pose.football === 'L' && <Socket sref={sockets.footL}><Football position={[0, -0.03, 0.13]} /></Socket>}
+      {pose.football === 'head' && <Socket sref={sockets.head}><Football position={[0, 0.24, 0.04]} /></Socket>}
+      {pose.football === 'hands' && <Socket sref={left ? sockets.handL : sockets.handR}><Football position={[left ? 0.1 : -0.1, -0.1, 0.06]} /></Socket>}
       {pads && ['calfL', 'calfR'].map(k => (
         <Socket key={k} sref={sockets[k]}><BattingPad mats={mats} keeper={keeper} /></Socket>
       ))}

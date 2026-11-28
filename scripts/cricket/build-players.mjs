@@ -455,13 +455,21 @@ async function main() {
   }
 
   // Overall rating: composite mapped onto 30..99 through its rank among established players,
-  // OVR = 35 + 64 * (percentile/100)^1.6, so only the top ~10% reach 89+. Transparent and stable.
+  // Rank within role (kept as rating.rolePct: prices + bots use it). Displayed OVR uses the bell curve below.
   // Percentiles are taken within the player's role ("percentile scoring by role").
   const ovrPctByRole = {};
   for (const r of ['BAT', 'WK', 'AR', 'BOWL']) {
     ovrPctByRole[r] = percentileFn(pool.filter(p => p.all.m >= 20 && p._comp.role === r).map(p => p._comp.composite));
   }
   const ovrPct = (v, r) => ovrPctByRole[r](v);
+  // OVR on a bell curve (FIFA-like): 67 + 12 x standard deviations above the role average
+  const roleStats = {};
+  for (const r of ['BAT', 'WK', 'AR', 'BOWL']) {
+    const v = pool.filter(p => p.all.m >= 20 && p._comp.role === r).map(p => p._comp.composite);
+    const mean = v.reduce((a, b) => a + b, 0) / v.length;
+    roleStats[r] = { mean, sd: Math.sqrt(v.reduce((a, b) => a + (b - mean) ** 2, 0) / v.length) || 1 };
+  }
+  const bellOvr = (v, r) => Math.max(30, Math.min(99, Math.round(67 + 12 * (v - roleStats[r].mean) / roleStats[r].sd)));
 
   const usedTraits = new Set();
   for (const p of pool) {
@@ -469,7 +477,7 @@ async function main() {
     const ov = c.ov;
     const person = people.get(p.id) || {};
     const w = wd[person.key_cricinfo] || null;
-    const ovr = Math.max(25, Math.min(99, Math.round(35 + 64 * Math.pow(ovrPct(c.composite, c.role) / 100, 1.6))));
+    const ovr = bellOvr(c.composite, c.role);
     // country: T20I team > Wikidata sport country > citizenship > override > India (IPL default)
     let country = p.intlTeam, countrySource = 't20i';
     if (!country && w?.countries?.length) { country = normCountry(w.countries[0]); countrySource = 'wikidata'; }

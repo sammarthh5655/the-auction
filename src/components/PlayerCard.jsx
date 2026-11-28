@@ -9,6 +9,14 @@ const FLAGS = {
   India: 'IND', Australia: 'AUS', England: 'ENG', 'South Africa': 'SA', 'New Zealand': 'NZ', 'West Indies': 'WI', Pakistan: 'PAK',
   'Sri Lanka': 'SL', Bangladesh: 'BAN', Afghanistan: 'AFG', Zimbabwe: 'ZIM', Ireland: 'IRE', Netherlands: 'NED', Nepal: 'NEP',
   Scotland: 'SCO', USA: 'USA', 'United Arab Emirates': 'UAE', Namibia: 'NAM', Singapore: 'SIN', Canada: 'CAN', Oman: 'OMA',
+  // football nations (FIFA codes)
+  Austria: 'AUT', Germany: 'GER', Spain: 'ESP', Portugal: 'POR', France: 'FRA', Italy: 'ITA', Brazil: 'BRA', Argentina: 'ARG',
+  Uruguay: 'URU', Belgium: 'BEL', Croatia: 'CRO', Denmark: 'DEN', Switzerland: 'SUI', Poland: 'POL', Serbia: 'SRB', Sweden: 'SWE',
+  Norway: 'NOR', Wales: 'WAL', Colombia: 'COL', Chile: 'CHI', Mexico: 'MEX', 'United States': 'USA', Japan: 'JPN', 'Korea, South': 'KOR',
+  Morocco: 'MAR', Algeria: 'ALG', Egypt: 'EGY', Senegal: 'SEN', Nigeria: 'NGA', Ghana: 'GHA', "Cote d'Ivoire": 'CIV', Cameroon: 'CMR',
+  Türkiye: 'TUR', Turkey: 'TUR', Greece: 'GRE', Russia: 'RUS', Ukraine: 'UKR', 'Czech Republic': 'CZE', Slovakia: 'SVK', Slovenia: 'SVN',
+  Hungary: 'HUN', Romania: 'ROU', 'Bosnia-Herzegovina': 'BIH', Georgia: 'GEO', Iceland: 'ISL', Finland: 'FIN', Mali: 'MLI', Guinea: 'GUI',
+  'DR Congo': 'COD', Gabon: 'GAB', Ecuador: 'ECU', Paraguay: 'PAR', Peru: 'PER', Venezuela: 'VEN', Albania: 'ALB', Israel: 'ISR', Iran: 'IRN',
 };
 export const countryCode = c => FLAGS[c] || (c || '').slice(0, 3).toUpperCase();
 
@@ -25,7 +33,7 @@ function PlayerCard({ player, pack, mini = false, base, onClick, className = '' 
   return (
     <div className={`pcard ${tierOf(player.ovr)} ${mini ? 'mini' : ''} ${className}`} onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
       <div className="ovr"><b>{player.ovr}</b><span>{role.key}</span></div>
-      <div className="flag">{countryCode(player.country)}<br /><span style={{ opacity: 0.75, fontSize: '0.85em' }}>{player.overseas ? pack.labels.overseas : pack.labels.domestic}</span></div>
+      <div className="flag">{countryCode(player.country)}<br /><span style={{ opacity: 0.75, fontSize: '0.85em' }}>{pack.domestic ? (player.overseas ? pack.labels.overseas : pack.labels.domestic) : (pack.cardSubtitle?.(player) || '')}</span></div>
       <div className="badges">
         {player.status === 'retired' ? <span className="tag">Legend</span> : <span className="tag">Active</span>}
         {age && <span className="tag">{player.status === 'retired' ? `b. ${player.dob.slice(0, 4)}` : `Age ${age}`}</span>}

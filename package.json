@@ -11,7 +11,9 @@
     "data:cricket": "node scripts/cricket/build-players.mjs",
     "data:cricket:offline": "node scripts/cricket/build-players.mjs --offline",
     "simulate": "node scripts/simulate.mjs",
-    "emulators": "firebase emulators:start --only auth,database --project demo-the-auction"
+    "emulators": "firebase emulators:start --only auth,database --project demo-the-auction",
+    "data:football": "node scripts/football/build-players.mjs",
+    "simulate:football": "node scripts/simulate.mjs --sport football"
   },
   "dependencies": {
     "@react-three/drei": "^9.117.3",

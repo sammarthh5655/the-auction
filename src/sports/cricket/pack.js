@@ -5,6 +5,7 @@
  * src/sports/README.md. Keep this file free of React/three imports so Node scripts can use it.
  */
 import { clamp, sum } from '../../engine/util.js';
+import { valueScore } from '../../engine/rules.js';
 
 const ROLES = [
   { key: 'BAT', label: 'Batter', plural: 'Batters', color: '#4fb3ff', icon: '🏏' },
@@ -115,7 +116,13 @@ const cricket = {
   dataUrl: 'data/cricket/players.json',
   sourceNote: "Source: Cricsheet ball-by-ball data (every IPL season + men's T20Is) and Wikidata (name, birth date, country).",
   domestic: 'India',
-  labels: { domestic: 'Indian', overseas: 'Overseas', league: 'IPL', lineup: 'Playing XI', squad: 'Squad', retired: 'Retired / legend' },
+  labels: { domestic: 'Indian', overseas: 'Overseas', league: 'IPL', lineup: 'Playing XI', squad: 'Squad', retired: 'Retired / legend', team: 'franchise' },
+  homeBlurb: 'Every IPL season 2008-2026 plus T20I stars, built from Cricsheet ball-by-ball data.',
+  overseasHint: 'IPL: 8 per squad, 4 in the Playing XI',
+  sorts: [
+    { value: 'runs', label: 'Runs', score: p => (p.stats.ipl?.runs || 0) + (p.stats.t20i?.runs || 0) },
+    { value: 'wk', label: 'Wickets', score: p => (p.stats.ipl?.wk || 0) + (p.stats.t20i?.wk || 0) },
+  ],
   currency: { symbol: '₹', big: 'Cr', small: 'L', bigFactor: 100 },
   theme: { accent: '#f5c542', accent2: '#ff8a3d', stage: '#08101f', glow: '#ffd76a', pitch: '#1b2b18' },
   roles: ROLES,
@@ -141,7 +148,7 @@ const cricket = {
   referencePurse: 100, // base prices / increments below are defined for a 100 Cr purse
   /** Base price (minor units, for the reference purse) derived from the stat rating. */
   baseSlab(p) {
-    const o = p.ovr;
+    const o = valueScore(p);
     return o >= 90 ? 200 : o >= 84 ? 150 : o >= 78 ? 100 : o >= 70 ? 75 : o >= 60 ? 50 : o >= 50 ? 30 : 20;
   },
   /** Tiered increments that scale with the price (reference purse, minor units = lakhs). */
@@ -152,7 +159,8 @@ const cricket = {
   roleTargets: { BAT: 0.27, WK: 0.12, AR: 0.23, BOWL: 0.38 },
   /** What a sensible XI needs - bots chase these, nobody is forced to. */
   essentialRoles: { WK: 1, BOWL: 4, AR: 1 },
-  isMarquee: p => p.ovr >= 88 || (p.famous && p.status === 'retired' && p.ovr >= 75),
+  roleCaps: { WK: 3 },
+  isMarquee: p => valueScore(p) >= 88 || (p.famous && p.status === 'retired' && valueScore(p) >= 75),
 
   // ------------------------------------------------ display
   keyStats(p) {
@@ -214,7 +222,7 @@ const cricket = {
       ],
       note: 'Percentiles compare this player with every regular batter / bowler in the pool (IPL + T20Is between full members). ' +
         'Era index: 100 = league average for the seasons he played, so 2008 and 2026 numbers are judged fairly. ' +
-        'OVR = 35 + 64 x (role percentile of the composite)^1.6.',
+        'OVR = 67 + 12 x (standard deviations above the average for his role): a bell curve, so 90+ is reserved for the true greats.',
     };
   },
   roleShort: key => ROLES.find(r => r.key === key)?.key || key,

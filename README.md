@@ -2,7 +2,7 @@
 
 A player-auction party game, IPL style. Every team gets the same purse. Bid for real players one at a time, build your squad, pick a Playing XI, and the site decides **whose team is better** from real stats. There is no match simulation, only a verdict with the reasons.
 
-**Cricket** is the first sport pack. **Football** is already registered as a pack and shows as "Coming soon".
+Two sport packs: **Cricket** (IPL + T20I) and **Football** (Europe's top leagues since 2012). Pick the sport on the home screen.
 
 - **Modes:** solo against AI bots (easy, medium or hard), pass-and-play with several human teams on one device, or online rooms with a room code (Firebase).
 - **Host controls everything:**
@@ -110,7 +110,7 @@ The script (`scripts/cricket/build-players.mjs`) works like this:
    - **Batting:** runs, average and strike rate, with average and strike rate as era indexes (100 = league average for the seasons played).
    - **Bowling:** wickets, plus economy and strike rate as era indexes.
    - Each is turned into a percentile against all regular batters or bowlers in the pool, with shrinkage for small samples.
-   - These combine into a role-weighted composite: `OVR = 35 + 64 × (role percentile)^1.6`.
+   - These combine into a role-weighted composite, and `OVR = 67 + 12 × (standard deviations above the role average)`: a FIFA-like bell curve where an average regular is about 67 and 90+ is reserved for the true greats. Prices and bot valuations use the player's rank within his role instead, so the auction economy does not depend on the display scale.
    - Ratings use IPL plus T20Is between full members only, so associate fixtures don't inflate them.
 7. It sets the base price from OVR (20 L up to 2 Cr at a 100 Cr purse; it scales with the purse).
 
@@ -167,29 +167,42 @@ To change a player's look:
 
 ---
 
+## Football
+
+- **Data:** [transfermarkt-datasets](https://github.com/dcaribou/transfermarkt-datasets) (CC0, snapshot current to July 2026).
+  - Run `npm run data:football` (`scripts/football/build-players.mjs`). It downloads about 53 MB of CSVs into `data-raw/football/`, which is git-ignored.
+  - It aggregates 1.9 million real player-match rows (minutes, goals, assists, cards) plus every game's score into about 2,600 players. They are players with real top-level careers.
+  - The dataset's player photo links are not used.
+- **Ratings (real stats only, market value never used):**
+  - Every stat is weighted by competition strength: Premier League 1.0, Champions League 1.12, Saudi Pro League 0.68, and so on. The table is in the script.
+  - Components: attacking (goals per 90 + total), creativity (assists per 90 + total), defending (team clean-sheet rate and goals conceded in his starts), winning (points per game) and experience (weighted minutes).
+  - Small samples are shrunk towards the position average.
+  - Sub-position sets the weights: holding midfielders lean on defending and winning; wingers and attacking midfielders on creating.
+  - OVR uses the same bell curve as cricket.
+- **Rules:** goalkeeper, defender, midfielder and forward; prices in € millions (default purse €200M); no overseas quota.
+- **The verdict:** auto-pick tries several formations (4-3-3, 4-4-2, 3-5-2...). Teams are scored on XI rating, attack, midfield, defence, goalkeeper and shape/balance.
+- **3D:** the same rigged human in football kit (shirt, shorts, socks, boots, keeper gloves) with a ball. Poses include shoot, dribble, pass, header, bicycle kick, knee slide, Siu jump, arms wide, free kick, keeper dive, keeper catch and tackle.
+- **Hand-styled players:** 76 famous players have curated looks in `data/football/traits.json`. Real height and preferred foot come from the data, and left-footers are mirrored.
+
 ## Sport packs (multi-sport)
 
-The engine, rooms, host settings, bidding and bots know nothing about cricket. Everything sport-specific lives in `src/sports/<sport>/`:
+The engine, rooms, host settings, bidding and bots know nothing about any sport. Everything sport-specific lives in `src/sports/<sport>/`:
 
 ```
 src/sports/index.js            registry (shown on the home screen)
-src/sports/cricket/pack.js     data URL, roles, labels, currency, theme, eras, filters,
-                               default squad rules, base-price slabs, increment tiers,
-                               retention slabs, card stats, reveal stats, stat tables,
-                               rating breakdown, evaluateLineup, autoPickLineup, poses
-src/sports/cricket/CricketCharacter.jsx + poses.js   3D character creator
-scripts/cricket/build-players.mjs                    data pipeline
-src/sports/football/pack.js    "Coming soon" placeholder
+src/sports/<sport>/pack.js     data URL, roles, labels, currency, eras, filters, default squad rules,
+                               base-price slabs, increment tiers, card/reveal stats, stat tables,
+                               rating breakdown, evaluateLineup, autoPickLineup, poses, character loader
+scripts/<sport>/               data pipeline -> public/data/<sport>/players.json
 ```
 
-To add football:
+To add another sport:
 
-1. Write a data script that outputs `public/data/football/players.json`. It needs the same top-level player fields: `id, name, role, country, overseas, status, years, ovr, rating, stats, character`.
-2. Implement the same fields as the cricket pack (positions GK/DEF/MID/FWD, a formation-aware `evaluateLineup`, and so on).
-3. Add a `FootballCharacter.jsx`.
-4. Set `available: true`.
+1. Write a data script that outputs the same top-level player fields: `id, name, role, country, overseas, status, years, ovr, rating (incl. rolePct), stats, character`.
+2. Implement a `pack.js` like the cricket and football packs, plus a character loader that registers its poses.
+3. Add it to `src/sports/index.js`.
 
-The auction, rooms, bots and results work unchanged.
+`npm run simulate -- --sport <id>` plays complete bot-only auctions for any pack and checks every rule.
 
 ## Project layout
 

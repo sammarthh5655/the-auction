@@ -11,10 +11,13 @@ import { createHostRunner, hostActions } from '../src/net/hostRunner.js';
 import { defaultSettings, makeTeams } from '../src/engine/settings.js';
 import { deepMerge, formatMoney, values } from '../src/engine/util.js';
 import { purseLeft, squadCounts } from '../src/engine/rules.js';
-import cricket from '../src/sports/cricket/pack.js';
+import cricketPack from '../src/sports/cricket/pack.js';
+import footballPack from '../src/sports/football/pack.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'public/data/cricket/players.json'), 'utf8'));
+const sportArg = process.argv.includes('--sport') ? process.argv[process.argv.indexOf('--sport') + 1] : 'cricket';
+const cricket = sportArg === 'football' ? footballPack : cricketPack; // (variable name kept: it is just "the pack")
+const data = JSON.parse(fs.readFileSync(path.join(ROOT, `public/data/${sportArg}/players.json`), 'utf8'));
 const players = data.players; players.byId = Object.fromEntries(players.map(p => [p.id, p]));
 const argv = process.argv.slice(2);
 const games = Number(argv[argv.indexOf('--games') + 1]) || 4;
@@ -24,7 +27,7 @@ const CONFIGS = [
   { name: 'hard, 8 teams, retention+rtm', patch: { teamCount: 8, bots: { difficulty: 'hard' }, retention: { on: true, max: 2 }, rtm: { on: true, cards: 2 }, pool: { count: 150 } } },
   { name: 'easy, 50 Cr, marquee, fixed inc', patch: { purse: 50, bots: { difficulty: 'easy' }, order: 'marquee', pricing: { incMode: 'fixed', incFixed: 0.25 } } },
   { name: '2 teams 500 Cr shuffled', patch: { purse: 500, teamCount: 2, order: 'shuffled', pool: { count: 40 } } },
-  { name: '10 teams, optional role minimums ON', patch: { teamCount: 10, squad: { min: 14, max: 18, roleMins: { WK: { on: true, min: 1 }, BOWL: { on: true, min: 4 }, AR: { on: true, min: 1 } } }, pool: { count: 200 }, secondRoundDiscount: 50 } },
+  { name: '10 teams, optional role minimums ON', patch: { teamCount: 10, squad: { min: 14, max: 18, roleMins: sportArg === 'football' ? { GK: { on: true, min: 2 }, DEF: { on: true, min: 5 }, MID: { on: true, min: 4 } } : { WK: { on: true, min: 1 }, BOWL: { on: true, min: 4 }, AR: { on: true, min: 1 } } }, pool: { count: 200 }, secondRoundDiscount: 50 } },
 ];
 
 async function runGame(cfg, seed) {
@@ -60,7 +63,7 @@ async function runGame(cfg, seed) {
     lines.push(`   ${team.name.padEnd(17)} ${String(c.size).padStart(2)} players  os ${c.overseas}  left ${formatMoney(left, cricket.currency).padStart(11)}`);
   }
   const res = room.results;
-  for (const r of res.ranking) for (const i of (r.issues || []).filter(x => /wicketkeeper/i.test(x))) lines.push(`   (bot quality note) ${room.teams[r.teamId].name}: ${i}`);
+  for (const r of res.ranking) for (const i of (r.issues || []).filter(x => /wicketkeeper|goalkeeper|defender|midfielder|forward/i.test(x))) lines.push(`   (bot quality note) ${room.teams[r.teamId].name}: ${i}`);
   for (const r of res.ranking) for (const i of (r.issues || []).filter(x => /overseas|empty/i.test(x))) problems.push(`${room.teams[r.teamId].name} XI: ${i}`);
   const sold = Object.values(room.log || {}).filter(l => l.kind === 'sold');
   const top = sold.sort((a, b) => b.price - a.price).slice(0, 3).map(l => `${players.byId[l.pid].name} ${formatMoney(l.price, cricket.currency)}`);
